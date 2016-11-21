@@ -153,6 +153,8 @@
   <ItemGroup>
     <ClInclude Include="Core\Logging.h" />
     <ClInclude Include="Core\PerformanceTest.h" />
+    <ClInclude Include="Maths\Quaternion.h" />
+    <ClInclude Include="Maths\Vec4.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
