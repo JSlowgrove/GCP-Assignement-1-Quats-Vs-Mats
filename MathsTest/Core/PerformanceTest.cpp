@@ -13,34 +13,33 @@ namespace Core
 
 	void PerformanceTest::testStart()
 	{
-		QueryPerformanceFrequency(&Frequency);
-		QueryPerformanceCounter(&StartingTime);
+		QueryPerformanceFrequency(&frequency);
+		QueryPerformanceCounter(&startingTime);
 	}
 
 	void PerformanceTest::testFinish()
 	{
-		QueryPerformanceCounter(&EndingTime);
-		ElapsedTime.QuadPart = EndingTime.QuadPart - StartingTime.QuadPart;
+		QueryPerformanceCounter(&endingTime);
+		elapsedTime.QuadPart = endingTime.QuadPart - startingTime.QuadPart;
 	}
 
 	unsigned long PerformanceTest::testResultsMicroseconds()
 	{
-		// To guard against loss-of-precision, we convertbto microseconds *before* dividing by ticks-per-second.
-		ElapsedTime.QuadPart *= 1000000;
-		ElapsedTime.QuadPart /= Frequency.QuadPart;
+		// To guard against loss-of-precision, we convert to microseconds before dividing by ticks-per-second.
+		elapsedTime.QuadPart *= 1000000;
+		elapsedTime.QuadPart /= frequency.QuadPart;
 	}
 
 	unsigned long PerformanceTest::PerformanceTest::testResultsMilliseconds()
 	{
-		// To guard against loss-of-precision, we convertbto milliseconds *before* dividing by ticks-per-second.
-		ElapsedTime.QuadPart *= 1000;
-		ElapsedTime.QuadPart /= Frequency.QuadPart;
+		// To guard against loss-of-precision, we convert to milliseconds before dividing by ticks-per-second.
+		elapsedTime.QuadPart *= 1000;
+		elapsedTime.QuadPart /= frequency.QuadPart;
 	}
 
 	unsigned long PerformanceTest::testResultsSeconds()
 	{
-		ElapsedTime.QuadPart /= Frequency.QuadPart;
-
+		elapsedTime.QuadPart /= frequency.QuadPart;
 	}
 
-}///End of Core namespace
+}//End of Core namespace

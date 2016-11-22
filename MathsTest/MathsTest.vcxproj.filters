@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Maths">
       <UniqueIdentifier>{2a7ed224-1b17-42c4-8b88-ab78ebd5158f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Maths">
+      <UniqueIdentifier>{fce913d4-caa3-4c57-ad8c-0d4eeca400af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="Core\Logging.cpp">
       <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Maths\Convert.cpp">
+      <Filter>Source Files\Maths</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +51,18 @@
       <Filter>Header Files\Maths</Filter>
     </ClInclude>
     <ClInclude Include="Maths\Vec4.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\Mat4.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\Vec3.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\Convert.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\MathsDefs.h">
       <Filter>Header Files\Maths</Filter>
     </ClInclude>
   </ItemGroup>
