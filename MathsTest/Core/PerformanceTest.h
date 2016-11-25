@@ -1,5 +1,6 @@
 #pragma once
 #include <windows.h>
+#include <cstdint>
 
 /**
 @brief The namespace for all core code.
@@ -30,34 +31,14 @@ namespace Core
 		void testStart();
 
 		/**
-		@brief A function to stop the performance test.
-		This is to be called when the test is to be stopped.
-		*/
-		void testFinish();
-
-		/**
-		@brief A function to get the results of the performance test. 
-		This returns the time taken in microseconds.
-		@returns The time taken in microseconds.
-		*/
-		unsigned long testResultsMicroseconds();
-
-		/**
-		@brief A function to get the results of the performance test.
-		This returns the time taken in milliseconds.
-		@returns The time taken in milliseconds.
-		*/
-		unsigned long testResultsMilliseconds();
-
-		/**
 		@brief A function to get the results of the performance test.
 		This returns the time taken in seconds.
 		@returns The time taken in seconds.
 		*/
-		unsigned long testResultsSeconds();
+		uint64_t testFinish();
 	private:
 		///The elapsed number of ticks
-		LARGE_INTEGER startingTime, endingTime, elapsedTime;
+		LARGE_INTEGER startingTime;
 		///The number of ticks-per-second
 		LARGE_INTEGER frequency;
 	};

@@ -9,6 +9,7 @@
 #include "../PGGAssignment2Code/Camera.h"
 #include "../PGGAssignment2Code/State.h"
 #include "../Core/Logging.h"
+#include "../Core/PerformanceTest.h"
 #include "../Maths/Vec2.h"
 #include "../Maths/Vec4.h"
 #include "../Maths/Mat4.h"
@@ -69,6 +70,8 @@ private:
 	Maths::Vec2 mouse;
 	///The array of matrix's to use
 	Maths::Mat4 matrix[9];
+	///The performance tester
+	Core::PerformanceTest* tester;
 
 	//tmp for testing
 	float angleUpdate;

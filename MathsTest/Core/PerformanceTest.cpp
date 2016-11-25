@@ -17,35 +17,18 @@ namespace Core
 		QueryPerformanceCounter(&startingTime);
 	}
 
-	void PerformanceTest::testFinish()
+	uint64_t PerformanceTest::testFinish()
 	{
-		QueryPerformanceCounter(&endingTime);
-		elapsedTime.QuadPart = endingTime.QuadPart - startingTime.QuadPart;
-	}
+		LARGE_INTEGER elapsedTime;
 
-	unsigned long PerformanceTest::testResultsMicroseconds()
-	{
+		QueryPerformanceCounter(&elapsedTime);
+		elapsedTime.QuadPart -= startingTime.QuadPart;
+
 		// To guard against loss-of-precision, we convert to microseconds before dividing by ticks-per-second.
 		elapsedTime.QuadPart *= 1000000;
 		elapsedTime.QuadPart /= frequency.QuadPart;
 
-		return unsigned long(elapsedTime.QuadPart);
-	}
-
-	unsigned long PerformanceTest::PerformanceTest::testResultsMilliseconds()
-	{
-		// To guard against loss-of-precision, we convert to milliseconds before dividing by ticks-per-second.
-		elapsedTime.QuadPart *= 1000;
-		elapsedTime.QuadPart /= frequency.QuadPart;
-
-		return unsigned long(elapsedTime.QuadPart);
-	}
-
-	unsigned long PerformanceTest::testResultsSeconds()
-	{
-		elapsedTime.QuadPart /= frequency.QuadPart;
-
-		return unsigned long(elapsedTime.QuadPart);
+		return uint64_t(elapsedTime.QuadPart);
 	}
 
 }//End of Core namespace

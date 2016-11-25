@@ -23,6 +23,9 @@ MainState::MainState(StateManager * stateManager, SDL_Window* window, int screen
 	//initialise the mouse
 	mouse = Maths::Vec2(0.0f, 0.0f);
 	
+	//initialise the performance tester
+	tester = new Core::PerformanceTest();
+
 	//tmp for testing
 	angleUpdate = 0.0f;
 	matrix[1].translate(matrix[1], Maths::Vec3(10.0f, 0.0f, 0.0f));
@@ -33,7 +36,6 @@ MainState::MainState(StateManager * stateManager, SDL_Window* window, int screen
 	matrix[6].translate(matrix[6], Maths::Vec3(-10.0f, -15.0f, 0.0f));
 	matrix[7].translate(matrix[7], Maths::Vec3(0.0f, 15.0f, 0.0f));
 	matrix[8].translate(matrix[8], Maths::Vec3(0.0f, -15.0f, 0.0f));
-
 	matrix[0].scale(matrix[0], 0.08f);
 }
 
@@ -43,6 +45,7 @@ MainState::~MainState()
 	delete sam;
 	delete camera;
 	delete userInterface;
+	delete tester;
 	for (auto i = objects.begin(); i != objects.end(); ++i)
 	{
 		delete i->second;
@@ -80,19 +83,24 @@ bool MainState::input()
 				break;
 
 			case SDLK_UP:
-				//matrix.rotateAlongY(matrix, 180.0f, Maths::angleType::degree);
-				break;
-
-			case SDLK_DOWN:
-				//matrix.rotateAlongY(matrix, 0.0f, Maths::angleType::degree);
+				for (int i = 0; i < 9; i++)
+				{
+					matrix[i].rotateAlongY(matrix[i], 180.0f, Maths::angleType::degree);
+				}
 				break;
 
 			case SDLK_LEFT:
-				//matrix.rotateAlongY(matrix, 90.0f, Maths::angleType::degree);
+				for (int i = 0; i < 9; i++)
+				{
+					matrix[i].rotateAlongY(matrix[i], -90.0f, Maths::angleType::degree);
+				}
 				break;
 
 			case SDLK_RIGHT:
-				//matrix.rotateAlongY(matrix, 270.0f, Maths::angleType::degree);
+				for (int i = 0; i < 9; i++)
+				{
+					matrix[i].rotateAlongY(matrix[i], 90.0f, Maths::angleType::degree);
+				}
 				break;
 			}
 
@@ -117,16 +125,16 @@ bool MainState::input()
 void MainState::update(float dt)
 {
 	//tmp for testing
- 	angleUpdate = (20.0f * dt);
-	matrix[0].rotateAlongY(matrix[0], angleUpdate, Maths::angleType::degree);
-	matrix[1].rotateAlongY(matrix[1], -angleUpdate, Maths::angleType::degree);
-	matrix[2].rotateAlongY(matrix[2], -angleUpdate, Maths::angleType::degree);
-	matrix[3].rotateAlongY(matrix[3], angleUpdate, Maths::angleType::degree);
-	matrix[4].rotateAlongY(matrix[4], angleUpdate, Maths::angleType::degree);
-	matrix[5].rotateAlongY(matrix[5], angleUpdate, Maths::angleType::degree);
-	matrix[6].rotateAlongY(matrix[6], angleUpdate, Maths::angleType::degree);
-	matrix[7].rotateAlongY(matrix[7], -angleUpdate, Maths::angleType::degree);
-	matrix[8].rotateAlongY(matrix[8], -angleUpdate, Maths::angleType::degree);
+//  angleUpdate = (20.0f * dt);
+// 	matrix[0].rotateAlongY(matrix[0], angleUpdate, Maths::angleType::degree);
+// 	matrix[1].rotateAlongY(matrix[1], -angleUpdate, Maths::angleType::degree);
+// 	matrix[2].rotateAlongY(matrix[2], -angleUpdate, Maths::angleType::degree);
+// 	matrix[3].rotateAlongY(matrix[3], angleUpdate, Maths::angleType::degree);
+// 	matrix[4].rotateAlongY(matrix[4], angleUpdate, Maths::angleType::degree);
+// 	matrix[5].rotateAlongY(matrix[5], angleUpdate, Maths::angleType::degree);
+// 	matrix[6].rotateAlongY(matrix[6], angleUpdate, Maths::angleType::degree);
+// 	matrix[7].rotateAlongY(matrix[7], -angleUpdate, Maths::angleType::degree);
+// 	matrix[8].rotateAlongY(matrix[8], -angleUpdate, Maths::angleType::degree);
 }
 
 void MainState::draw()
