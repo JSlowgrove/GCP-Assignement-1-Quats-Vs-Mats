@@ -87,6 +87,9 @@
     <ClCompile Include="Maths\Mat4.cpp">
       <Filter>Source Files\Maths</Filter>
     </ClCompile>
+    <ClCompile Include="States\MainStateUI.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\PerformanceTest.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Sam.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\MainStateUI.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

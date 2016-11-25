@@ -3,15 +3,30 @@
 namespace Maths
 {
 
+	void Mat4::scale(Mat4 &matrix, float sv) //uses row1x, row2y & row3z
+	{
+		//make a temporary identity matrix
+		Mat4 tm;
+		tm.setAsIdentityMatrix();
+
+		tm.m[0] = sv;			/*y					  z					  w*/
+		/*x*/				tm.m[5] = sv;			/*z					  w*/
+		/*x					y*/						tm.m[10] = sv;		/*w*/
+		/*x					y						z					  w*/
+
+		//multiply the current matrix with the temporary matrix
+		matrix = matrix * tm;
+	}
+
 	void Mat4::translate(Mat4 &matrix, Vec3 tv) //uses row1w, row2w & row3w
 	{
 		//make a temporary identity matrix
 		Mat4 tm;
 		tm.setAsIdentityMatrix();
 
-		/*x		y		z*/		tm.m[3] += tv.x;
-		/*x		y		z*/		tm.m[7] += tv.y;
-		/*x		y		z*/		tm.m[11] += tv.z;
+		/*x		y		z*/		tm.m[3] = tv.x;
+		/*x		y		z*/		tm.m[7] = tv.y;
+		/*x		y		z*/		tm.m[11] = tv.z;
 		/*x		y		z		w*/
 
 		//multiply the current matrix with the temporary matrix

@@ -13,31 +13,13 @@
 #include "../Maths/Vec4.h"
 #include "../Maths/Mat4.h"
 #include "../Sam.h"
+#include "MainStateUI.h"
 
 /**
 @brief The main state of the program.
 */
 class MainState : public State
 {
-private:
-	///The loaded Object files
-	///(left over from PGG, not really needed as only have one object and shader but is a lot of work to remove)
-	std::unordered_map<std::string, Object*> objects;
-	///The loaded Shader files
-	///(left over from PGG, not really needed as only have one object and shader but is a lot of work to remove)
-	std::unordered_map<std::string, Shader*> shaders;
-	///The 3D model
-	Sam* sam;
-	///The Camera for the program
-	Camera* camera;
-	///Current Mouse position
-	Maths::Vec2 mouse;
-	///The array of matrix's to use
-	Maths::Mat4 matrix[9];
-
-	//tmp for testing
-	float angleUpdate;
-
 public:
 	/**
 	Constructs a MainState.
@@ -69,4 +51,25 @@ public:
 	A function to draw to the screen.
 	*/
 	void draw();
+
+private:
+	///The loaded Object files
+	///(left over from PGG, not really needed as only have one object and shader but is a lot of work to remove)
+	std::unordered_map<std::string, Object*> objects;
+	///The loaded Shader files
+	///(left over from PGG, not really needed as only have one object and shader but is a lot of work to remove)
+	std::unordered_map<std::string, Shader*> shaders;
+	///The MainStateUI
+	MainStateUI* userInterface;
+	///The 3D model
+	Sam* sam;
+	///The Camera for the program
+	Camera* camera;
+	///Current Mouse position
+	Maths::Vec2 mouse;
+	///The array of matrix's to use
+	Maths::Mat4 matrix[9];
+
+	//tmp for testing
+	float angleUpdate;
 };

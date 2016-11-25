@@ -124,15 +124,10 @@ namespace Maths
 
 		/**
 		@brief Scales the matrix using the input vector
+		@param angle The angle to rotate the matrix by.
 		@param sV The scale vector vec3 to scale the matrix by.
 		*/
-		void scale(float sv) //uses row1x, row2y & row3z
-		{
-			m[0] *= sv;			/*y					  z					  w*/
-			/*x*/				m[5] *= sv;			/*z					  w*/
-			/*x					y*/					m[10] *= sv;		/*w*/
-			/*x					y					z					  w*/
-		}
+		void scale(Mat4 &matrix, float sv);
 
 		/**
 		@brief Translates the matrix using the input vector

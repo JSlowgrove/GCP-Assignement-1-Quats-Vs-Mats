@@ -5,15 +5,19 @@ MainState::MainState(StateManager * stateManager, SDL_Window* window, int screen
 {
 	//Initialise the Camera
 	camera = new Camera();
-	camera->moveCameraAlongZ(100.0f);
+	camera->moveCameraAlongZ(10.0f);
 
 	//create the sam model
 	sam = new Sam(objects, shaders);
+
+	//initialise the UI
+	userInterface = new MainStateUI(shaders);
 
 	//initialise the matrix's
 	for (int i = 0; i < 9; i++)
 	{
 		matrix[i].setAsIdentityMatrix();
+		matrix[i].scale(matrix[i], 0.08f);
 	}
 
 	//initialise the mouse
@@ -21,14 +25,16 @@ MainState::MainState(StateManager * stateManager, SDL_Window* window, int screen
 	
 	//tmp for testing
 	angleUpdate = 0.0f;
-	matrix[1].translate(matrix[1], Maths::Vec3(30.0f, 0.0f, 0.0f));
-	matrix[2].translate(matrix[2], Maths::Vec3(-30.0f, 0.0f, 0.0f));
-	matrix[3].translate(matrix[3], Maths::Vec3(30.0f, 35.0f, 0.0f));
-	matrix[4].translate(matrix[4], Maths::Vec3(-30.0f, 35.0f, 0.0f));
-	matrix[5].translate(matrix[5], Maths::Vec3(30.0f, -35.0f, 0.0f));
-	matrix[6].translate(matrix[6], Maths::Vec3(-30.0f, -35.0f, 0.0f));
-	matrix[7].translate(matrix[7], Maths::Vec3(0.0f, 35.0f, 0.0f));
-	matrix[8].translate(matrix[8], Maths::Vec3(0.0f, -35.0f, 0.0f));
+	matrix[1].translate(matrix[1], Maths::Vec3(10.0f, 0.0f, 0.0f));
+	matrix[2].translate(matrix[2], Maths::Vec3(-10.0f, 0.0f, 0.0f));
+	matrix[3].translate(matrix[3], Maths::Vec3(10.0f, 15.0f, 0.0f));
+	matrix[4].translate(matrix[4], Maths::Vec3(-10.0f, 15.0f, 0.0f));
+	matrix[5].translate(matrix[5], Maths::Vec3(10.0f, -15.0f, 0.0f));
+	matrix[6].translate(matrix[6], Maths::Vec3(-10.0f, -15.0f, 0.0f));
+	matrix[7].translate(matrix[7], Maths::Vec3(0.0f, 15.0f, 0.0f));
+	matrix[8].translate(matrix[8], Maths::Vec3(0.0f, -15.0f, 0.0f));
+
+	matrix[0].scale(matrix[0], 0.08f);
 }
 
 MainState::~MainState()
@@ -36,6 +42,7 @@ MainState::~MainState()
 	//delete pointers
 	delete sam;
 	delete camera;
+	delete userInterface;
 	for (auto i = objects.begin(); i != objects.end(); ++i)
 	{
 		delete i->second;
@@ -129,4 +136,7 @@ void MainState::draw()
 	{
 		sam->draw(camera->getView(), camera->getProjection(), matrix[i]);
 	}
+
+	//draw the UI
+	userInterface->draw();
 }

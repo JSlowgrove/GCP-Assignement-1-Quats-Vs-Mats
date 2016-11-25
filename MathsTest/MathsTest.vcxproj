@@ -168,6 +168,7 @@
     <ClCompile Include="PGGAssignment2Code\UIObject.cpp" />
     <ClCompile Include="Sam.cpp" />
     <ClCompile Include="States\MainState.cpp" />
+    <ClCompile Include="States\MainStateUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Logging.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="PGGAssignment2Code\UIObject.h" />
     <ClInclude Include="Sam.h" />
     <ClInclude Include="States\MainState.h" />
+    <ClInclude Include="States\MainStateUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

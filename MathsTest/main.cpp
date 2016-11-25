@@ -94,8 +94,8 @@ int main(int argc, char *argv[])
 	/*Create Window*/
 	int winPosX = 100;
 	int winPosY = 100;
-	int winWidth = 640;
-	int winHeight = 480;
+	int winWidth = 720;
+	int winHeight = 576;
 	SDL_Window *window = SDL_CreateWindow("Maths Assignment 1",  /*The first parameter is the window title*/
 		winPosX, winPosY,
 		winWidth, winHeight,
