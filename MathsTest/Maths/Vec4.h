@@ -73,7 +73,7 @@ namespace Maths
 		*/
 		float getLength()
 		{
-			return sqrt((w*w) + (x*x) + (y*y) + (z*z));
+			return float(sqrt((w*w) + (x*x) + (y*y) + (z*z)));
 		}
 	};
 

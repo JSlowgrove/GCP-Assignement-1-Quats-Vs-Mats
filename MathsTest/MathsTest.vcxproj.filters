@@ -25,6 +25,18 @@
     <Filter Include="Source Files\Maths">
       <UniqueIdentifier>{fce913d4-caa3-4c57-ad8c-0d4eeca400af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\PGGAssignment2Code">
+      <UniqueIdentifier>{c5dc5c1c-9b86-476d-a151-ea06336c98f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PGGAssignment2Code">
+      <UniqueIdentifier>{d74e2e8b-90b5-4734-8719-4e8112652689}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\States">
+      <UniqueIdentifier>{762dbd81-7956-4877-8646-bdd4a1526565}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{f1462c85-621a-4f57-9de8-1ed08fb82512}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -37,6 +49,42 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="Maths\Convert.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="PGGAssignment2Code\Camera.cpp">
+      <Filter>Source Files\PGGAssignment2Code</Filter>
+    </ClCompile>
+    <ClCompile Include="PGGAssignment2Code\FileLoader.cpp">
+      <Filter>Source Files\PGGAssignment2Code</Filter>
+    </ClCompile>
+    <ClCompile Include="PGGAssignment2Code\LoadingScreen.cpp">
+      <Filter>Source Files\PGGAssignment2Code</Filter>
+    </ClCompile>
+    <ClCompile Include="PGGAssignment2Code\Object.cpp">
+      <Filter>Source Files\PGGAssignment2Code</Filter>
+    </ClCompile>
+    <ClCompile Include="PGGAssignment2Code\Shader.cpp">
+      <Filter>Source Files\PGGAssignment2Code</Filter>
+    </ClCompile>
+    <ClCompile Include="PGGAssignment2Code\State.cpp">
+      <Filter>Source Files\PGGAssignment2Code</Filter>
+    </ClCompile>
+    <ClCompile Include="PGGAssignment2Code\StateManager.cpp">
+      <Filter>Source Files\PGGAssignment2Code</Filter>
+    </ClCompile>
+    <ClCompile Include="PGGAssignment2Code\UI.cpp">
+      <Filter>Source Files\PGGAssignment2Code</Filter>
+    </ClCompile>
+    <ClCompile Include="PGGAssignment2Code\UIObject.cpp">
+      <Filter>Source Files\PGGAssignment2Code</Filter>
+    </ClCompile>
+    <ClCompile Include="States\MainState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Sam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Maths\Mat4.cpp">
       <Filter>Source Files\Maths</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,6 +112,42 @@
     </ClInclude>
     <ClInclude Include="Maths\MathsDefs.h">
       <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\Vec2.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="PGGAssignment2Code\Camera.h">
+      <Filter>Header Files\PGGAssignment2Code</Filter>
+    </ClInclude>
+    <ClInclude Include="PGGAssignment2Code\FileLoader.h">
+      <Filter>Header Files\PGGAssignment2Code</Filter>
+    </ClInclude>
+    <ClInclude Include="PGGAssignment2Code\LoadingScreen.h">
+      <Filter>Header Files\PGGAssignment2Code</Filter>
+    </ClInclude>
+    <ClInclude Include="PGGAssignment2Code\Object.h">
+      <Filter>Header Files\PGGAssignment2Code</Filter>
+    </ClInclude>
+    <ClInclude Include="PGGAssignment2Code\Shader.h">
+      <Filter>Header Files\PGGAssignment2Code</Filter>
+    </ClInclude>
+    <ClInclude Include="PGGAssignment2Code\State.h">
+      <Filter>Header Files\PGGAssignment2Code</Filter>
+    </ClInclude>
+    <ClInclude Include="PGGAssignment2Code\StateManager.h">
+      <Filter>Header Files\PGGAssignment2Code</Filter>
+    </ClInclude>
+    <ClInclude Include="PGGAssignment2Code\UI.h">
+      <Filter>Header Files\PGGAssignment2Code</Filter>
+    </ClInclude>
+    <ClInclude Include="PGGAssignment2Code\UIObject.h">
+      <Filter>Header Files\PGGAssignment2Code</Filter>
+    </ClInclude>
+    <ClInclude Include="States\MainState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Sam.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

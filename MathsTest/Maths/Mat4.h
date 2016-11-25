@@ -9,52 +9,62 @@
 */
 namespace Maths
 {
+	///An enum for the type of angle
+	enum angleType {
+		radian,
+		degree
+	};
 
 	/**
-	@brief Contains the Mat4 structure with functions and overloaded operators.
+	@brief Contains the Mat4 structure with functions and overloaded operators. This is row major.
 	*/
 	struct Mat4
 	{
-		///Vec4 variables
-		Vec4 row1, row2, row3, row4;
+		/**
+		matrix variables
+		[00]x [01]y [02]z [03]w
+		[04]x [05]y [06]z [07]w
+		[08]x [09]y [10]z [11]w
+		[12]x [13]y [14]z [15]w
+		*/
+		float m[16];
 
 		/**
-		@brief Constructs the Mat4 setting the values of the vec4's to 0,0,0,0.
+		@brief Constructs the Mat4 setting the values of the matrix to 0.
 		*/
-		Mat4() : row1(), row2(), row3(), row4() {}
+		Mat4() : m{
+			0.0f,0.0f,0.0f,0.0f,
+			0.0f,0.0f,0.0f,0.0f,
+			0.0f,0.0f,0.0f,0.0f,
+			0.0f,0.0f,0.0f,0.0f
+		} {}
 
 		/**
 		@brief Constructs the Mat4 setting the values to the input vectors.
-		@param row1 The first inputed vector.
-		@param row2 The second inputed vector.
-		@param row3 The third inputed vector.
-		@param row4 The forth inputed vector.
+		@param v1 The first inputed vector.
+		@param v2 The second inputed vector.
+		@param v3 The third inputed vector.
+		@param v4 The forth inputed vector.
 		*/
-		Mat4(Vec4 row1, Vec4 row2, Vec4 v3, Vec4 v4) : row1(row1), row2(row2), row3(row3), row4(row4) {}
+		Mat4(Vec4 v1, Vec4 v2, Vec4 v3, Vec4 v4) : 
+			m{
+			v1.x, v1.y, v1.z, v1.w,
+			v2.x, v2.y, v2.z, v2.w,
+			v3.x, v3.y, v3.z, v3.w,
+			v4.x, v4.y, v4.z, v4.w,
+		} {}
 
 		/**
 		@brief Overloads the += operator.
 		@param vecIn The input Mat4.
 		@returns The new matrix.
 		*/
-		Mat4* operator += (Mat4 matIn)
+		Mat4* operator += (Mat4 mIn)
 		{
-			row1.x += matIn.row1.x;
-			row1.y += matIn.row1.y;
-			row1.z += matIn.row1.z;
-			row1.w += matIn.row1.w;
-			row2.x += matIn.row2.x;
-			row2.y += matIn.row2.y;
-			row2.z += matIn.row2.z;
-			row2.w += matIn.row2.w;
-			row3.x += matIn.row3.x;
-			row3.y += matIn.row3.y;
-			row3.z += matIn.row3.z;
-			row3.w += matIn.row3.w;
-			row4.x += matIn.row4.x;
-			row4.y += matIn.row4.y;
-			row4.z += matIn.row4.z;
-			row4.w += matIn.row4.w;
+			m[0] += mIn.m[0];	m[1] += mIn.m[1];	m[2] += mIn.m[2];	m[3] += mIn.m[3];
+			m[4] += mIn.m[4];	m[5] += mIn.m[5];	m[6] += mIn.m[6];	m[7] += mIn.m[7];
+			m[8] += mIn.m[8];	m[9] += mIn.m[9];	m[10] += mIn.m[10];	m[11] += mIn.m[11];
+			m[12] += mIn.m[12];	m[13] += mIn.m[13];	m[14] += mIn.m[14];	m[15] += mIn.m[15];
 			return this;
 		}
 
@@ -63,50 +73,12 @@ namespace Maths
 		@param vecIn The input Mat4.
 		@returns The new matrix.
 		*/
-		Mat4* operator -= (Mat4 matIn)
+		Mat4* operator -= (Mat4 mIn)
 		{
-			row1.x -= matIn.row1.x;
-			row1.y -= matIn.row1.y;
-			row1.z -= matIn.row1.z;
-			row1.w -= matIn.row1.w;
-			row2.x -= matIn.row2.x;
-			row2.y -= matIn.row2.y;
-			row2.z -= matIn.row2.z;
-			row2.w -= matIn.row2.w;
-			row3.x -= matIn.row3.x;
-			row3.y -= matIn.row3.y;
-			row3.z -= matIn.row3.z;
-			row3.w -= matIn.row3.w;
-			row4.x -= matIn.row4.x;
-			row4.y -= matIn.row4.y;
-			row4.z -= matIn.row4.z;
-			row4.w -= matIn.row4.w;
-			return this;
-		}
-
-		/**
-		@brief Overloads the *= operator.
-		@param vecIn The input Mat4.
-		@returns The new matrix.
-		*/
-		Mat4* operator *= (Mat4 matIn)
-		{
-			row1.x *= matIn.row1.x;
-			row1.y *= matIn.row2.x;
-			row1.z *= matIn.row3.x;
-			row1.w *= matIn.row4.x;
-			row2.x *= matIn.row1.y;
-			row2.y *= matIn.row2.y;
-			row2.z *= matIn.row3.y;
-			row2.w *= matIn.row4.y;
-			row3.x *= matIn.row1.z;
-			row3.y *= matIn.row2.z;
-			row3.z *= matIn.row3.z;
-			row3.w *= matIn.row4.z;
-			row4.x *= matIn.row1.w;
-			row4.y *= matIn.row2.w;
-			row4.z *= matIn.row3.w;
-			row4.w *= matIn.row4.w;
+			m[0] -= mIn.m[0];	m[1] -= mIn.m[1];	m[2] -= mIn.m[2];	m[3] -= mIn.m[3];
+			m[4] -= mIn.m[4];	m[5] -= mIn.m[5];	m[6] -= mIn.m[6];	m[7] -= mIn.m[7];
+			m[8] -= mIn.m[8];	m[9] -= mIn.m[9];	m[10] -= mIn.m[10];	m[11] -= mIn.m[11];
+			m[12] -= mIn.m[12];	m[13] -= mIn.m[13];	m[14] -= mIn.m[14];	m[15] -= mIn.m[15];
 			return this;
 		}
 
@@ -115,363 +87,226 @@ namespace Maths
 		*/
 		void setAsIdentityMatrix()
 		{
-			row1.x = 1.0f; row1.y = 0.0f; row1.z = 0.0f; row1.w = 0.0f;
-			row2.x = 0.0f; row2.y = 1.0f; row2.z = 0.0f; row2.w = 0.0f;
-			row3.x = 0.0f; row3.y = 0.0f; row3.z = 1.0f; row3.w = 0.0f;
-			row4.x = 0.0f; row4.y = 0.0f; row4.z = 0.0f; row4.w = 1.0f;
+			m[0] = 1.0f;	m[1] = 0.0f;	m[2] = 0.0f;	m[3] = 0.0f;
+			m[4] = 0.0f;	m[5] = 1.0f;	m[6] = 0.0f;	m[7] = 0.0f;
+			m[8] = 0.0f;	m[9] = 0.0f;	m[10] = 1.0f;	m[11] = 0.0f;
+			m[12] = 0.0f;	m[13] = 0.0f;	m[14] = 0.0f;	m[15] = 1.0f;
+		}
+
+		/**
+		@brief Sets the values of the matrix to that of a Perspective matrix
+		@param fovy The field of view on the y axis.
+		@param a The aspect.
+		@param zf The z plane which is far from the camera.
+		@param zn The z plane closer to the camera.
+		*/
+		void setAsPerspectiveMatrix(float fovy, float a, float zf, float zn)
+		{
+			float const s = 1.f / float(tan(fovy / 2.f));
+
+			m[0] = s / a;	m[1] = 0.0f;	m[2] = 0.0f;						m[3] = 0.0f;
+			m[4] = 0.0f;	m[5] = s;		m[6] = 0.0f;						m[7] = 0.0f;
+			m[8] = 0.0f;	m[9] = 0.0f;	m[10] = -((zf + zn) / (zf - zn));	m[11] = 0.0f;
+			m[12] = 0.0f;	m[13] = 0.0f;	m[14] = 0.0f;						m[15] = -((2.0f * zf * zn) / (zf - zn));
+		}
+
+		/**
+		@brief Sets the position of the matrix using the input vector
+		@param pv The position vector vec3 to set the matrix position.
+		*/
+		void setPos(Vec3 pv) //uses row1w, row2w & row3w
+		{
+			/*x		y		z*/		m[3] = pv.x;
+			/*x		y		z*/		m[7] = pv.y;
+			/*x		y		z*/		m[11] = pv.z;
+			/*x		y		z		w*/
 		}
 
 		/**
 		@brief Scales the matrix using the input vector
-		@param scaleVector The vec3 to scale the matrix by.
+		@param sV The scale vector vec3 to scale the matrix by.
 		*/
-		void scale(Vec3 scaleVector)
+		void scale(float sv) //uses row1x, row2y & row3z
 		{
-			row1.x *= scaleVector.x;
-			row2.y *= scaleVector.y;
-			row3.z *= scaleVector.z;
+			m[0] *= sv;			/*y					  z					  w*/
+			/*x*/				m[5] *= sv;			/*z					  w*/
+			/*x					y*/					m[10] *= sv;		/*w*/
+			/*x					y					z					  w*/
 		}
 
 		/**
 		@brief Translates the matrix using the input vector
-		@param translationVector The vec3 to translate the matrix by.
+		@param tv The translation vector vec3 to set the matrix position.
+		@param matrix A pointer to the matrix to rotate.
 		*/
-		void translate(Vec3 translationVector)
-		{
-			row1.w += translationVector.x;
-			row2.w += translationVector.y;
-			row3.w += translationVector.z;
-		}
+		void translate(Mat4 &matrix, Vec3 tv);
 
 		/**
-		@brief Rotate the matrix using the input vector along the x axis
-		@param rotateVector The vec3 to rotate the matrix by.
-		*/
-		void rotateAlongX(Vec3 rotateVector)
-		{
-			row2.y *= rotateVector.y;
-			row2.z *= -rotateVector.z;
-			row3.y *= rotateVector.y;
-			row3.z *= rotateVector.z;
-		}
-
-		/**
-		@brief Rotate the matrix using the input vector along the y axis
-		@param rotateVector The vec3 to rotate the matrix by.
-		*/
-		void rotateAlongY(Vec3 rotateVector)
-		{
-			row1.x *= rotateVector.x; 
-			row1.z *= rotateVector.z;
-			row3.x *= -rotateVector.x; 
-			row3.z *= rotateVector.z;
-		}
-
-		/**
-		@brief Rotate the matrix using the input vector along the z axis
-		@param rotateVector The vec3 to rotate the matrix by.
-		*/
-		void rotateAlongZ(Vec3 rotateVector)
-		{
-			row1.x *= rotateVector.x; 
-			row1.y *= -rotateVector.y;
-			row2.x *= rotateVector.x; 
-			row2.y *= rotateVector.y;
-		}
-
-		/**
-		@brief Rotate the matrix using the angle of rotation in degrees along the x axis
+		@brief Rotate the matrix using the angle of rotation along the x axis.
+		@param matrix A pointer to the matrix to rotate.
 		@param angle The angle to rotate the matrix by.
+		@param format The type of angle, can be either Degree or Radian
 		*/
-		void rotateAlongXDeg(float angle)
-		{
-			rotateAlongXRad(Convert::convertDegreeToRadian(angle));
-		}
+		void rotateAlongX(Mat4 &matrix, float angle, angleType format);
 
 		/**
-		@brief Rotate the matrix using the angle of rotation in degrees along the y axis
+		@brief Rotate the matrix using the angle of rotation along the y axis.
+		@param matrix A pointer to the matrix to rotate.
 		@param angle The angle to rotate the matrix by.
+		@param format The type of angle, can be either Degree or Radian
 		*/
-		void rotateAlongYDeg(float angle)
-		{
-			rotateAlongYRad(Convert::convertDegreeToRadian(angle));
-		}
+		void rotateAlongY(Mat4 &matrix, float angle, angleType format);
 
 		/**
-		@brief Rotate the matrix using the angle of rotation in degrees along the z axis
+		@brief Rotate the matrix using the angle of rotation along the z axis.
+		@param matrix A pointer to the matrix to rotate.
 		@param angle The angle to rotate the matrix by.
+		@param format The type of angle, can be either Degree or Radian
 		*/
-		void rotateAlongZDeg(float angle)
-		{
-			rotateAlongZRad(Convert::convertDegreeToRadian(angle));
-		}
+		void rotateAlongZ(Mat4 &matrix, float angle, angleType format);
 
 		/**
-		@brief Rotate the matrix using the angle of rotation in radians along the x axis
-		@param angle The angle to rotate the matrix by.
+		@brief A function to get a pointer to the first index of the array
+		@returns A pointer to the first index of the array.
 		*/
-		void rotateAlongXRad(float angle)
+		float* getMatrixArray()
 		{
-			row2.y += cos(angle);
-			row2.z += -sin(angle);
-			row3.y += sin(angle);
-			row3.z += cos(angle);
-		}
-
-		/**
-		@brief Rotate the matrix using the angle of rotation in radians along the y axis
-		@param angle The angle to rotate the matrix by.
-		*/
-		void rotateAlongYRad(float angle)
-		{
-			row1.x += cos(angle);
-			row1.z += sin(angle);
-			row3.x += -sin(angle);
-			row3.z += cos(angle);
-		}
-
-		/**
-		@brief Rotate the matrix using the angle of rotation in radians along the z axis
-		@param angle The angle to rotate the matrix by.
-		*/
-		void rotateAlongZRad(float angle)
-		{
-			row1.x += cos(angle);
-			row1.y += -sin(angle);
-			row2.x += sin(angle);
-			row2.y += cos(angle);
-		}
-
-		/**
-		@brief Set the rotation of the matrix using the angle of rotation in degrees along the x axis
-		@param angle The angle of rotation.
-		*/
-		void setRotationAlongXDeg(float angle)
-		{
-			setRotationAlongXRad(Convert::convertDegreeToRadian(angle));
-		}
-
-		/**
-		@brief Set the rotation of the matrix using the angle of rotation in degrees along the y axis
-		@param angle The angle of rotation.
-		*/
-		void setRotationAlongYDeg(float angle)
-		{
-			setRotationAlongYRad(Convert::convertDegreeToRadian(angle));
-		}
-
-		/**
-		@brief Set the rotation of the matrix using the angle of rotation in degrees along the z axis
-		@param angle The angle of rotation.
-		*/
-		void setRotationAlongZDeg(float angle)
-		{
-			setRotationAlongZRad(Convert::convertDegreeToRadian(angle));
-		}
-
-		/**
-		@brief Set the rotation of the matrix using the angle of rotation in radians along the x axis
-		@param angle The angle of rotation.
-		*/
-		void setRotationAlongXRad(float angle)
-		{
-			row2.y = cos(angle);
-			row2.z = -sin(angle);
-			row3.y = sin(angle);
-			row3.z = cos(angle);
-		}
-
-		/**
-		@brief Set the rotation of the matrix using the angle of rotation in radians along the y axis
-		@param angle The angle of rotation.
-		*/
-		void setRotationAlongYRad(float angle)
-		{
-			row1.x = cos(angle);
-			row1.z = sin(angle);
-			row3.x = -sin(angle);
-			row3.z = cos(angle);
-		}
-
-		/**
-		@brief Set the rotation of the matrix using the angle of rotation in radians along the z axis
-		@param angle The angle of rotation.
-		*/
-		void setRotationAlongZRad(float angle)
-		{
-			row1.x = cos(angle);
-			row1.y = -sin(angle);
-			row2.x = sin(angle);
-			row2.y = cos(angle);
+			return &m[0];
 		}
 	};
 
 	/**
 	@brief Overloads the + operator allowing a Mat4 to be added to a scalar.
-	@param matInA The input Mat4.
-	@param scalar The scalar to add.
+	@param mIn The input Mat4.
+	@param s The scalar to add.
 	@returns The new Mat4.
 	*/
-	inline Mat4 operator + (Mat4 matInA, float scalar)
+	inline Mat4 operator + (Mat4 mIn, float s)
 	{
-		Mat4 matOut;
-		matOut.row1.x = matInA.row1.x + scalar;
-		matOut.row1.y = matInA.row1.y + scalar;
-		matOut.row1.z = matInA.row1.z + scalar;
-		matOut.row1.w = matInA.row1.w + scalar;
-		matOut.row2.x = matInA.row2.x + scalar;
-		matOut.row2.y = matInA.row2.y + scalar;
-		matOut.row2.z = matInA.row2.z + scalar;
-		matOut.row2.w = matInA.row2.w + scalar;
-		matOut.row3.x = matInA.row3.x + scalar;
-		matOut.row3.y = matInA.row3.y + scalar;
-		matOut.row3.z = matInA.row3.z + scalar;
-		matOut.row3.w = matInA.row3.w + scalar;
-		matOut.row4.x = matInA.row4.x + scalar;
-		matOut.row4.y = matInA.row4.y + scalar;
-		matOut.row4.z = matInA.row4.z + scalar;
-		matOut.row4.w = matInA.row4.w + scalar;
-		return matOut;
+		Mat4 mOut;
+		mOut.m[0] = mIn.m[0] + s;	mOut.m[1] = mIn.m[1] + s;	mOut.m[2] = mIn.m[2] + s;	mOut.m[3] = mIn.m[3] + s;
+		mOut.m[4] = mIn.m[4] + s;	mOut.m[5] = mIn.m[5] + s;	mOut.m[6] = mIn.m[6] + s;	mOut.m[7] = mIn.m[7] + s;
+		mOut.m[8] = mIn.m[8] + s;	mOut.m[9] = mIn.m[9] + s;	mOut.m[10] = mIn.m[10] + s;	mOut.m[11] = mIn.m[11] + s;
+		mOut.m[12] = mIn.m[12] + s;	mOut.m[13] = mIn.m[13] + s;	mOut.m[14] = mIn.m[14] + s;	mOut.m[15] = mIn.m[15] + s;
+		return mOut;
 	}
 
 	/**
 	@brief Overloads the + operator allowing a Mat4 to be added to a scalar.
-	@param matInA An input Mat4.
-	@param matInA An input Mat4.
+	@param mInA An input Mat4.
+	@param mInB An input Mat4.
 	@returns The new Mat4.
 	*/
-	inline Mat4 operator + (Mat4 matInA, Mat4 matInB)
+	inline Mat4 operator + (Mat4 mInA, Mat4 mInB)
 	{
-		Mat4 matOut;
-		matOut.row1.x = matInA.row1.x + matInB.row1.x;
-		matOut.row1.y = matInA.row1.y + matInB.row1.y;
-		matOut.row1.z = matInA.row1.z + matInB.row1.z;
-		matOut.row1.w = matInA.row1.w + matInB.row1.w;
-		matOut.row2.x = matInA.row2.x + matInB.row2.x;
-		matOut.row2.y = matInA.row2.y + matInB.row2.y;
-		matOut.row2.z = matInA.row2.z + matInB.row2.z;
-		matOut.row2.w = matInA.row2.w + matInB.row2.w;
-		matOut.row3.x = matInA.row3.x + matInB.row3.x;
-		matOut.row3.y = matInA.row3.y + matInB.row3.y;
-		matOut.row3.z = matInA.row3.z + matInB.row3.z;
-		matOut.row3.w = matInA.row3.w + matInB.row3.w;
-		matOut.row4.x = matInA.row4.x + matInB.row4.x;
-		matOut.row4.y = matInA.row4.y + matInB.row4.y;
-		matOut.row4.z = matInA.row4.z + matInB.row4.z;
-		matOut.row4.w = matInA.row4.w + matInB.row4.w;
-		return matOut;
+		Mat4 mOut;
+		mOut.m[0] = mInA.m[0] + mInB.m[0];		mOut.m[1] = mInA.m[1] + mInB.m[1];		mOut.m[2] = mInA.m[2] + mInB.m[2];		mOut.m[3] = mInA.m[3] + mInB.m[3];
+		mOut.m[4] = mInA.m[4] + mInB.m[4];		mOut.m[5] = mInA.m[5] + mInB.m[5];		mOut.m[6] = mInA.m[6] + mInB.m[6];		mOut.m[7] = mInA.m[7] + mInB.m[7];
+		mOut.m[8] = mInA.m[8] + mInB.m[8];		mOut.m[9] = mInA.m[9] + mInB.m[9];		mOut.m[10] = mInA.m[10] + mInB.m[10];	mOut.m[11] = mInA.m[11] + mInB.m[11];
+		mOut.m[12] = mInA.m[12] + mInB.m[12];	mOut.m[13] = mInA.m[13] + mInB.m[13];	mOut.m[14] = mInA.m[14] + mInB.m[14];	mOut.m[15] = mInA.m[15] + mInB.m[15];
+		return mOut;
 	}
 
 	/**
 	@brief Overloads the - operator allowing a Mat4 to be added to a scalar.
-	@param matInA The input Mat4.
-	@param scalar The scalar to add.
+	@param mInA The input Mat4.
+	@param s The scalar to add.
 	@returns The new Mat4.
 	*/
-	inline Mat4 operator - (Mat4 matInA, float scalar)
+	inline Mat4 operator - (Mat4 mInA, float s)
 	{
-		Mat4 matOut;
-		matOut.row1.x = matInA.row1.x - scalar;
-		matOut.row1.y = matInA.row1.y - scalar;
-		matOut.row1.z = matInA.row1.z - scalar;
-		matOut.row1.w = matInA.row1.w - scalar;
-		matOut.row2.x = matInA.row2.x - scalar;
-		matOut.row2.y = matInA.row2.y - scalar;
-		matOut.row2.z = matInA.row2.z - scalar;
-		matOut.row2.w = matInA.row2.w - scalar;
-		matOut.row3.x = matInA.row3.x - scalar;
-		matOut.row3.y = matInA.row3.y - scalar;
-		matOut.row3.z = matInA.row3.z - scalar;
-		matOut.row3.w = matInA.row3.w - scalar;
-		matOut.row4.x = matInA.row4.x - scalar;
-		matOut.row4.y = matInA.row4.y - scalar;
-		matOut.row4.z = matInA.row4.z - scalar;
-		matOut.row4.w = matInA.row4.w - scalar;
-		return matOut;
+		Mat4 mOut;
+		mOut.m[0] = mInA.m[0] - s;		mOut.m[1] = mInA.m[1] - s;		mOut.m[2] = mInA.m[2] - s;		mOut.m[3] = mInA.m[3] - s;
+		mOut.m[4] = mInA.m[4] - s;		mOut.m[5] = mInA.m[5] - s;		mOut.m[6] = mInA.m[6] - s;		mOut.m[7] = mInA.m[7] - s;
+		mOut.m[8] = mInA.m[8] - s;		mOut.m[9] = mInA.m[9] - s;		mOut.m[10] = mInA.m[10] - s;	mOut.m[11] = mInA.m[11] - s;
+		mOut.m[12] = mInA.m[12] - s;	mOut.m[13] = mInA.m[13] - s;	mOut.m[14] = mInA.m[14] - s;	mOut.m[15] = mInA.m[15] - s;
+		return mOut;
 	}
 
 	/**
 	@brief Overloads the - operator allowing a Mat4 to be subtracted from a scalar.
-	@param matInA An input Mat4.
-	@param matInA An input Mat4.
+	@param mInA An input Mat4.
+	@param mInB An input Mat4.
 	@returns The new Mat4.
 	*/
-	inline Mat4 operator - (Mat4 matInA, Mat4 matInB)
+	inline Mat4 operator - (Mat4 mInA, Mat4 mInB)
 	{
-		Mat4 matOut;
-		matOut.row1.x = matInA.row1.x - matInB.row1.x;
-		matOut.row1.y = matInA.row1.y - matInB.row1.y;
-		matOut.row1.z = matInA.row1.z - matInB.row1.z;
-		matOut.row1.w = matInA.row1.w - matInB.row1.w;
-		matOut.row2.x = matInA.row2.x - matInB.row2.x;
-		matOut.row2.y = matInA.row2.y - matInB.row2.y;
-		matOut.row2.z = matInA.row2.z - matInB.row2.z;
-		matOut.row2.w = matInA.row2.w - matInB.row2.w;
-		matOut.row3.x = matInA.row3.x - matInB.row3.x;
-		matOut.row3.y = matInA.row3.y - matInB.row3.y;
-		matOut.row3.z = matInA.row3.z - matInB.row3.z;
-		matOut.row3.w = matInA.row3.w - matInB.row3.w;
-		matOut.row4.x = matInA.row4.x - matInB.row4.x;
-		matOut.row4.y = matInA.row4.y - matInB.row4.y;
-		matOut.row4.z = matInA.row4.z - matInB.row4.z;
-		matOut.row4.w = matInA.row4.w - matInB.row4.w;
-		return matOut;
+		Mat4 mOut;
+		mOut.m[0] = mInA.m[0] - mInB.m[0];		mOut.m[1] = mInA.m[1] - mInB.m[1];		mOut.m[2] = mInA.m[2] - mInB.m[2];		mOut.m[3] = mInA.m[3] - mInB.m[3];
+		mOut.m[4] = mInA.m[4] - mInB.m[4];		mOut.m[5] = mInA.m[5] - mInB.m[5];		mOut.m[6] = mInA.m[6] - mInB.m[6];		mOut.m[7] = mInA.m[7] - mInB.m[7];
+		mOut.m[8] = mInA.m[8] - mInB.m[8];		mOut.m[9] = mInA.m[9] - mInB.m[9];		mOut.m[10] = mInA.m[10] - mInB.m[10];	mOut.m[11] = mInA.m[11] - mInB.m[11];
+		mOut.m[12] = mInA.m[12] - mInB.m[12];	mOut.m[13] = mInA.m[13] - mInB.m[13];	mOut.m[14] = mInA.m[14] - mInB.m[14];	mOut.m[15] = mInA.m[15] - mInB.m[15];
+		return mOut;
 	}
 
 	/**
 	@brief Overloads the * operator allowing a Mat4 to be multiplied to a scalar.
-	@param matInA The input Mat4.
-	@param scalar The scalar to add.
+	@param mInA The input Mat4.
+	@param s The scalar to add.
 	@returns The new Mat4.
 	*/
-	inline Mat4 operator * (Mat4 matInA, float scalar)
+	inline Mat4 operator * (Mat4 mInA, float s)
 	{
-		Mat4 matOut;
-		matOut.row1.x = matInA.row1.x * scalar;
-		matOut.row1.y = matInA.row1.y * scalar;
-		matOut.row1.z = matInA.row1.z * scalar;
-		matOut.row1.w = matInA.row1.w * scalar;
-		matOut.row2.x = matInA.row2.x * scalar;
-		matOut.row2.y = matInA.row2.y * scalar;
-		matOut.row2.z = matInA.row2.z * scalar;
-		matOut.row2.w = matInA.row2.w * scalar;
-		matOut.row3.x = matInA.row3.x * scalar;
-		matOut.row3.y = matInA.row3.y * scalar;
-		matOut.row3.z = matInA.row3.z * scalar;
-		matOut.row3.w = matInA.row3.w * scalar;
-		matOut.row4.x = matInA.row4.x * scalar;
-		matOut.row4.y = matInA.row4.y * scalar;
-		matOut.row4.z = matInA.row4.z * scalar;
-		matOut.row4.w = matInA.row4.w * scalar;
-		return matOut;
+		Mat4 mOut;
+		mOut.m[0] = mInA.m[0] * s;		mOut.m[1] = mInA.m[1] * s;		mOut.m[2] = mInA.m[2] * s;		mOut.m[3] = mInA.m[3] * s;
+		mOut.m[4] = mInA.m[4] * s;		mOut.m[5] = mInA.m[5] * s;		mOut.m[6] = mInA.m[6] * s;		mOut.m[7] = mInA.m[7] * s;
+		mOut.m[8] = mInA.m[8] * s;		mOut.m[9] = mInA.m[9] * s;		mOut.m[10] = mInA.m[10] * s;	mOut.m[11] = mInA.m[11] * s;
+		mOut.m[12] = mInA.m[12] * s;	mOut.m[13] = mInA.m[13] * s;	mOut.m[14] = mInA.m[14] * s;	mOut.m[15] = mInA.m[15] * s;
+		return mOut;
 	}
 
 	/**
 	@brief Overloads the * operator allowing a Mat4 to be multiplied with another Mat4.
+	REMEMBER: Mat1 * Mat2 != Mat2 * Mat1
 	@param matInA An input Mat4.
 	@param matInB An input Mat4.
 	@returns The new Mat4.
 	*/
-	inline Mat4 operator * (Mat4 matInA, Mat4 matInB)
+	inline Mat4 operator * (Mat4 mInA, Mat4 mInB)
 	{
-		Mat4 matOut;
-		matOut.row1.x = matInA.row1.x * matInA.row1.x;
-		matOut.row1.y = matInA.row1.y * matInA.row2.x;
-		matOut.row1.z = matInA.row1.z * matInA.row3.x;
-		matOut.row1.w = matInA.row1.w * matInA.row4.x;
-		matOut.row2.x = matInA.row2.x * matInA.row1.y;
-		matOut.row2.y = matInA.row2.y * matInA.row2.y;
-		matOut.row2.z = matInA.row2.z * matInA.row3.y;
-		matOut.row2.w = matInA.row2.w * matInA.row4.y;
-		matOut.row3.x = matInA.row3.x * matInA.row1.z;
-		matOut.row3.y = matInA.row3.y * matInA.row2.z;
-		matOut.row3.z = matInA.row3.z * matInA.row3.z;
-		matOut.row3.w = matInA.row3.w * matInA.row4.z;
-		matOut.row4.x = matInA.row4.x * matInA.row1.w;
-		matOut.row4.y = matInA.row4.y * matInA.row2.w;
-		matOut.row4.z = matInA.row4.z * matInA.row3.w;
-		matOut.row4.w = matInA.row4.w * matInA.row4.w;
-		return matOut;
+		Mat4 mOut;
+
+		//row 1
+		//(row1x * row1x) + (row1y * row2x) + (row1z * row3x) + (row1w * row4x)
+		mOut.m[0] = (mInA.m[0] * mInB.m[0]) + (mInA.m[1] * mInB.m[4]) + (mInA.m[2] * mInB.m[8]) + (mInA.m[3] * mInB.m[12]);
+		//(row1x * row1y) + (row1y * row2y) + (row1z * row3y) + (row1w * row4y)
+		mOut.m[1] =	(mInA.m[0] * mInB.m[1]) + (mInA.m[1] * mInB.m[5]) + (mInA.m[2] * mInB.m[9]) + (mInA.m[3] * mInB.m[13]);
+		//(row1x * row1z) + (row1y * row2z) + (row1z * row3z) + (row1w * row4z)
+		mOut.m[2] =	(mInA.m[0] * mInB.m[2])	+ (mInA.m[1] * mInB.m[6])+ (mInA.m[2] * mInB.m[10]) + (mInA.m[3] * mInB.m[14]);
+		//(row1x * row1w) + (row1y * row2w) + (row1z * row3w) + (row1w * row4w)
+		mOut.m[3] = (mInA.m[0] * mInB.m[3])	+ (mInA.m[1] * mInB.m[7]) + (mInA.m[2] * mInB.m[11]) + (mInA.m[3] * mInB.m[15]);
+
+		//row 2
+		//(row2x * row1x) + (row2y * row2x) + (row2z * row3x) + (row2w * row4x)
+		mOut.m[4] = (mInA.m[4] * mInB.m[0])	+ (mInA.m[5] * mInB.m[4]) + (mInA.m[6] * mInB.m[8]) + (mInA.m[7] * mInB.m[12]);
+		//(row2x * row1y) + (row2y * row2y) + (row2z * row3y) + (row2w * row4y)
+		mOut.m[5] =	(mInA.m[4] * mInB.m[1]) + (mInA.m[5] * mInB.m[5]) + (mInA.m[6] * mInB.m[9]) + (mInA.m[7] * mInB.m[13]);
+		//(row2x * row1z) + (row2y * row2z) + (row2z * row3z) +(row2w * row4z)
+		mOut.m[6] =	(mInA.m[4] * mInB.m[2]) + (mInA.m[5] * mInB.m[6]) + (mInA.m[6] * mInB.m[10]) + (mInA.m[7] * mInB.m[14]);
+		//(row2x * row1w) + (row2y * row2w) + (row2z * row3w) + (row2w * row4w)
+		mOut.m[7] =	(mInA.m[4] * mInB.m[3]) + (mInA.m[5] * mInB.m[7]) + (mInA.m[6] * mInB.m[11]) + (mInA.m[7] * mInB.m[15]);
+
+		//row 3
+		//(row3x * row1x) + (row3y * row2x) + (row3z * row3x) + (row3w * row4x)
+		mOut.m[8] =	(mInA.m[8] * mInB.m[0])	+ (mInA.m[9] * mInB.m[4]) + (mInA.m[10] * mInB.m[8]) + (mInA.m[11] * mInB.m[12]);
+		//(row3x * row1y) + (row3y * row2y) + (row3z * row3y) + (row3w * row4y)
+		mOut.m[9] =	(mInA.m[8] * mInB.m[1])	+ (mInA.m[9] * mInB.m[5]) + (mInA.m[10] * mInB.m[9]) + (mInA.m[11] * mInB.m[13]);
+		//(row3x * row1z) + (row3y * row2z) + (row3z * row3z) + (row3w * row4z)
+		mOut.m[10] = (mInA.m[8] * mInB.m[2]) + (mInA.m[9] * mInB.m[6]) + (mInA.m[10] * mInB.m[10]) + (mInA.m[11] * mInB.m[14]);
+		//(row3x * row1w) + (row3y * row2w) + (row3z * row3w) + (row3w * row4w)
+		mOut.m[11] = (mInA.m[8] * mInB.m[3]) + (mInA.m[9] * mInB.m[7]) + (mInA.m[10] * mInB.m[11]) + (mInA.m[11] * mInB.m[15]);
+
+		//row 4
+		//(row4x * row1x) + (row4y * row2x) + (row4z * row3x) + (row4w * row4x)
+		mOut.m[12] = (mInA.m[12] * mInB.m[0]) + (mInA.m[13] * mInB.m[4]) + (mInA.m[14] * mInB.m[8]) + (mInA.m[15] * mInB.m[12]);
+		//(row4x * row1y) + (row4y * row2y) + (row4z * row3y) + (row4w * row4y)
+		mOut.m[13] = (mInA.m[12] * mInB.m[1]) + (mInA.m[13] * mInB.m[5]) + (mInA.m[14] * mInB.m[9]) + (mInA.m[15] * mInB.m[13]);
+		//(row4x * row1z) + (row4y * row2z) + (row4z * row3z) + (row4w * row4z)
+		mOut.m[14] = (mInA.m[12] * mInB.m[2]) + (mInA.m[13] * mInB.m[6]) + (mInA.m[14] * mInB.m[10]) + (mInA.m[15] * mInB.m[14]);
+		//(row4x * row1w) + (row4y * row2w) + (row4z * row3w) + (row4w * row4w)
+		mOut.m[15] = (mInA.m[12] * mInB.m[3]) + (mInA.m[13] * mInB.m[7]) + (mInA.m[14] * mInB.m[11]) + (mInA.m[15] * mInB.m[15]);
+
+		return mOut;
 	}
 
 }// End of Maths namespace
