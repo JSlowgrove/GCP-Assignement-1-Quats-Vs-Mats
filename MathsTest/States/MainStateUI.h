@@ -19,15 +19,6 @@ class MainStateUI : public UI
 public:
 	/**
 	@brief Constructs the MainStateUI.
-	@param vertexShaderFileName The name of the vertex shader file.
-	@param fragmentShaderFileName The name of the fragment shader file.
-	@param shaders A reference to the loaded Shader files
-	*/
-	MainStateUI(std::string vertexShaderFileName, std::string fragmentShaderFileName,
-		std::unordered_map<std::string, Shader*> &shaders);
-
-	/**
-	@brief Constructs the MainStateUI.
 	@param shaders A reference to the loaded Shader files
 	*/
 	MainStateUI(std::unordered_map<std::string, Shader*> &shaders);
@@ -52,20 +43,42 @@ public:
 	@brief A function to draw to the loading text to the screen.
 	*/
 	void drawLoading() { loadingText->draw(shader); }
+	void drawPerformance() { performanceText->draw(shader); }
 
 	void updateTime(float time);
+	void updateAxis(char axis);
+	void updateMethod(char method);
+	void updateNumberOfRotations(int rotations);
+	void updateMemory(float memory);
+
+	char getAxis() { return axis; }
+	int getRotations() { return rotations; }
+	char getMethod() { return method; }
 
 private:
 	///The Title Image
 	UIObject * background;
-	///The Buttons
-	UIObject * matrixButton;
-	UIObject * quatButton;
+	///Info Text
+	UIObject * axisText;
+	UIObject * numberOfRotationsText;
+	UIObject * rotationMethodText;
 	///The button texts
-	UIObject * matrixButtonText;
-	UIObject * quatButtonText;
-	///The time taken texts
+	UIObject * matrixText;
+	UIObject * quatText;
+	UIObject * xText;
+	UIObject * yText;
+	UIObject * zText;
+	UIObject * set10Text;
+	UIObject * set100Text;
+	UIObject * set1000Text;
+	///The performance texts
 	UIObject * timeText;
+	UIObject * memoryText;
 	///The loading text
 	UIObject * loadingText;
+	UIObject * performanceText;
+	///the current axis
+	char axis;
+	int rotations;
+	char method;
 };

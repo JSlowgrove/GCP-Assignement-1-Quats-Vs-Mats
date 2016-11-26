@@ -14,6 +14,7 @@
 #include "../Maths/Vec2.h"
 #include "../Maths/Vec4.h"
 #include "../Maths/Mat4.h"
+#include "../Maths/Quaternion.h"
 #include "../Sam.h"
 #include "MainStateUI.h"
 
@@ -70,7 +71,9 @@ private:
 	///Current Mouse position
 	Maths::Vec2 mouse;
 	///The array of matrix's to use
-	Maths::Mat4 matrix[10];
+	std::vector<Maths::Mat4> matrix;
+	///The array of quaternion's to use
+	std::vector<Maths::Quaternion> quats;
 	///The performance tester
 	Core::PerformanceTest* tester;
 
@@ -78,6 +81,11 @@ private:
 	Draws a LoadingScreen.
 	*/
 	void loadingScreen();
+
+	/**
+	Draws a PerformanceScreen.
+	*/
+	void performanceScreen();
 
 	//tmp for testing
 	float angleUpdate;

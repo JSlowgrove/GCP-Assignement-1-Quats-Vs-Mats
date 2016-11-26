@@ -13,7 +13,7 @@
 */
 class UIObject
 {
-private:
+protected:
 	/**The VBO for the rectangle*/
 	GLuint obj;
 	/**The dimensions for the rectangle*/

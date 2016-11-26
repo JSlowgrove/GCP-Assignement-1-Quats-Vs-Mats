@@ -1,6 +1,8 @@
 #pragma once
 
 #include "math.h"
+#include "Vec3.h"
+#include "Mat4.h"
 
 /**
 @brief The namespace for all maths code.
@@ -13,10 +15,33 @@ namespace Maths
 	*/
 	struct Quaternion
 	{
+		float w;
 		float x;
 		float y;
 		float z;
-		float w;
+
+		/**
+		@brief Constructs the Quaternion setting the values to 1,0,0,0.
+		*/
+		Quaternion() : w(1.0f), x(0.0f), y(0.0f), z(0.0f) {}
+
+		/**
+		@brief Constructs the Quaternion setting the values to the input coordinates.
+		@param w The inputed w position.
+		@param x The inputed x position.
+		@param y The inputed y position.
+		@param z The inputed z position.
+		*/
+		Quaternion(float w, float x, float y, float z) : w(w), x(x), y(y), z(z) {}
+
+		/**
+		@brief Constructs the Quaternion setting the values to the input coordinates.
+		@param w The inputed w position.
+		@param x The inputed x position.
+		@param y The inputed y position.
+		@param z The inputed z position.
+		*/
+		Quaternion(int w, int x, int y, int z) : w((float)w), x((float)x), y((float)y), z((float)z) {}
 
 		/**
 		@brief Returns the length of the Vec4.
@@ -24,7 +49,7 @@ namespace Maths
 		*/
 		float getLength()
 		{
-			return sqrt((w*w) + (x*x) + (y*y) + (z*z));
+			return (float)sqrt((w*w) + (x*x) + (y*y) + (z*z));
 		}
 
 		Quaternion getNormalised()
@@ -37,6 +62,12 @@ namespace Maths
 			normalised.z = z / length;
 			return normalised;
 		}
+
+		void rotate(Quaternion &quat, Maths::Vec3 axis, float angle, angleType format);
+
+		Mat4 getMatrix();
+
+		Mat4 Quaternion::getMatrixWithUnitQuaternion();
 	};
 
 	/**
