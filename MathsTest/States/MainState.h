@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <cstdint>
 #include <time.h>
 #include "../PGGAssignment2Code/StateManager.h"
 #include "../PGGAssignment2Code/Camera.h"
@@ -69,9 +70,14 @@ private:
 	///Current Mouse position
 	Maths::Vec2 mouse;
 	///The array of matrix's to use
-	Maths::Mat4 matrix[9];
+	Maths::Mat4 matrix[10];
 	///The performance tester
 	Core::PerformanceTest* tester;
+
+	/**
+	Draws a LoadingScreen.
+	*/
+	void loadingScreen();
 
 	//tmp for testing
 	float angleUpdate;

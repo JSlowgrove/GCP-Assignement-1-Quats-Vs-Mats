@@ -2,6 +2,9 @@
 
 #include <SDL.h>
 #include <iostream>
+#include <cstdint>
+#include <sstream>
+#include <iomanip> 
 #include <unordered_map>
 #include "../PGGAssignment2Code/Shader.h"
 #include "../PGGAssignment2Code/UIObject.h"
@@ -45,11 +48,24 @@ public:
 	*/
 	void draw();
 
+	/**
+	@brief A function to draw to the loading text to the screen.
+	*/
+	void drawLoading() { loadingText->draw(shader); }
+
+	void updateTime(float time);
+
 private:
 	///The Title Image
 	UIObject * background;
-	///The Button
-	UIObject * button;
-	///The Play Text
-	UIObject * buttonText;
+	///The Buttons
+	UIObject * matrixButton;
+	UIObject * quatButton;
+	///The button texts
+	UIObject * matrixButtonText;
+	UIObject * quatButtonText;
+	///The time taken texts
+	UIObject * timeText;
+	///The loading text
+	UIObject * loadingText;
 };
