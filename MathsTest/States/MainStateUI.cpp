@@ -1,7 +1,7 @@
 #include "MainStateUI.h"
 
 MainStateUI::MainStateUI(std::unordered_map<std::string, Shader*> &shaders)
-	: UI(shaders), axis('x'), rotations(1000), method('m')
+	: UI(shaders), axis('x'), rotations(10), method('m')
 {
 	//Initialise background
 
@@ -30,7 +30,7 @@ MainStateUI::MainStateUI(std::unordered_map<std::string, Shader*> &shaders)
 	text = TTF_RenderText_Blended(font, "Rotation method:", fontColour);
 	rotationMethodText = new UIObject(10.0f, 10.0f, 40.0f, 10.0f, text);
 	text = TTF_RenderText_Blended(font, "Number of rotations:", fontColour);
-	numberOfRotationsText = new UIObject(115.0f, 10.0f, 70.0f, 10.0f, text);
+	numberOfRotationsText = new UIObject(115.0f, 10.0f, 75.0f, 10.0f, text);
 
 	//button text
 	text = TTF_RenderText_Blended(font, "Matrix", selectedFontColour);
@@ -44,17 +44,19 @@ MainStateUI::MainStateUI(std::unordered_map<std::string, Shader*> &shaders)
 	text = TTF_RenderText_Blended(font, "Z", fontColour);
 	zText = new UIObject(90.0f, 20.0f, 10.0f, 10.0f, text);
 	text = TTF_RenderText_Blended(font, "10", selectedFontColour);
-	set10Text = new UIObject(115.0f, 20.0f, 20.0f, 10.0f, text);
+	set10Text = new UIObject(115.0f, 20.0f, 15.0f, 10.0f, text);
 	text = TTF_RenderText_Blended(font, "100", fontColour);
-	set100Text = new UIObject(140.0f, 20.0f, 20.0f, 10.0f, text);
+	set100Text = new UIObject(130.0f, 20.0f, 15.0f, 10.0f, text);
 	text = TTF_RenderText_Blended(font, "1000", fontColour);
-	set1000Text = new UIObject(165.0f, 20.0f, 20.0f, 10.0f, text);
+	set1000Text = new UIObject(145.0f, 20.0f, 15.0f, 10.0f, text);
+	text = TTF_RenderText_Blended(font, "10000", fontColour);
+	set10000Text = new UIObject(160.0f, 20.0f, 15.0f, 10.0f, text);
 
 	//performance text
 	text = TTF_RenderText_Blended(font, "Time Taken: -ms", fontColour);
 	timeText = new UIObject(60.0f, 35.0f, 40.0f, 10.0f, text);
-	text = TTF_RenderText_Blended(font, "Memory Usage: -MB", fontColour);
-	memoryText = new UIObject(115.0f, 35.0f, 70.0f, 10.0f, text);
+	text = TTF_RenderText_Blended(font, "Memory Usage: -B", fontColour);
+	memoryText = new UIObject(115.0f, 35.0f, 75.0f, 10.0f, text);
 
 	//loading text
 	text = TTF_RenderText_Blended(font, "LOADING...", fontColour);
@@ -84,6 +86,7 @@ MainStateUI::~MainStateUI()
 	delete set10Text;
 	delete set100Text;
 	delete set1000Text;
+	delete set10000Text;
 	delete timeText;
 	delete memoryText;
 	delete loadingText;
@@ -219,14 +222,15 @@ void MainStateUI::updateNumberOfRotations(int rotations)
 		Core::Logging::logI("Unable to load ttf from: font/isl_jupiter.ttf");
 		Core::Logging::logI("TTF error : " + std::string(TTF_GetError()));
 	}
-	SDL_Color FontColour1 = { 255, 255, 255 };
+	SDL_Color fontColour1 = { 255, 255, 255 };
 	SDL_Color fontColour2 = { 255, 255, 255 };
 	SDL_Color fontColour3 = { 255, 255, 255 };
+	SDL_Color fontColour4 = { 255, 255, 255 };
 	//initialise the colours
 	switch (rotations)
 	{
 	case 10:
-		FontColour1 = { 0, 0, 255 };
+		fontColour1 = { 0, 0, 255 };
 		break;
 
 	case 100:
@@ -236,15 +240,21 @@ void MainStateUI::updateNumberOfRotations(int rotations)
 	case 1000:
 		fontColour3 = { 0, 0, 255 };
 		break;
+
+	case 10000:
+		fontColour4 = { 0, 0, 255 };
+		break;
 	}
 
 	//create text
-	SDL_Surface * text = TTF_RenderText_Blended(font, "10", FontColour1);
-	set10Text = new UIObject(115.0f, 20.0f, 20.0f, 10.0f, text);
+	SDL_Surface * text = TTF_RenderText_Blended(font, "10", fontColour1);
+	set10Text = new UIObject(115.0f, 20.0f, 15.0f, 10.0f, text);
 	text = TTF_RenderText_Blended(font, "100", fontColour2);
-	set100Text = new UIObject(140.0f, 20.0f, 20.0f, 10.0f, text);
+	set100Text = new UIObject(135.0f, 20.0f, 15.0f, 10.0f, text);
 	text = TTF_RenderText_Blended(font, "1000", fontColour3);
-	set1000Text = new UIObject(165.0f, 20.0f, 20.0f, 10.0f, text);
+	set1000Text = new UIObject(155.0f, 20.0f, 15.0f, 10.0f, text);
+	text = TTF_RenderText_Blended(font, "10000", fontColour4);
+	set10000Text = new UIObject(175.0f, 20.0f, 15.0f, 10.0f, text);
 
 	//delete font
 	TTF_CloseFont(font);
@@ -253,7 +263,7 @@ void MainStateUI::updateNumberOfRotations(int rotations)
 	SDL_FreeSurface(text);
 }
 
-void MainStateUI::updateMemory(float memory)
+void MainStateUI::updateMemory(int memory)
 {
 	//set floating point precision of the results
 	std::stringstream stream;
@@ -261,7 +271,7 @@ void MainStateUI::updateMemory(float memory)
 	std::string s = stream.str();
 
 	//convert the time to text
-	std::string textContent = "Memory Usage: " + s + "MB";
+	std::string textContent = "Memory Usage: " + s + "B";
 
 	//initialise font and font colour
 	TTF_Font* font = TTF_OpenFont("assets/font/isl_jupiter.ttf", 100);
@@ -275,7 +285,7 @@ void MainStateUI::updateMemory(float memory)
 	//create surface
 	SDL_Surface *text = TTF_RenderText_Blended(font, textContent.c_str(), fontColour);
 	//initialise the button UI text
-	memoryText = new UIObject(115.0f, 35.0f, 70.0f, 10.0f, text);
+	memoryText = new UIObject(115.0f, 35.0f, 75.0f, 10.0f, text);
 	//delete font
 	TTF_CloseFont(font);
 	font = NULL;
@@ -306,7 +316,8 @@ void MainStateUI::draw()
 	zText->draw(shader);
  	set10Text->draw(shader);
  	set100Text->draw(shader);
- 	set1000Text->draw(shader);
+	set1000Text->draw(shader);
+	set10000Text->draw(shader);
 
 	//enable the depth test for the 3D next loop
 	glEnable(GL_DEPTH_TEST);

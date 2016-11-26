@@ -161,6 +161,12 @@ namespace Maths
 		void rotateAlongZ(Mat4 &matrix, float angle, angleType format);
 
 		/**
+		@brief Gets the position of the matrix
+		@returns pv The position of the matrix as a vec3.
+		*/
+		Vec3 getPos() {	return Vec3(m[3], m[7], m[11]);	}
+
+		/**
 		@brief A function to get a pointer to the first index of the array
 		@returns A pointer to the first index of the array.
 		*/
@@ -267,7 +273,7 @@ namespace Maths
 		//(row1x * row1y) + (row1y * row2y) + (row1z * row3y) + (row1w * row4y)
 		mOut.m[1] =	(mInA.m[0] * mInB.m[1]) + (mInA.m[1] * mInB.m[5]) + (mInA.m[2] * mInB.m[9]) + (mInA.m[3] * mInB.m[13]);
 		//(row1x * row1z) + (row1y * row2z) + (row1z * row3z) + (row1w * row4z)
-		mOut.m[2] =	(mInA.m[0] * mInB.m[2])	+ (mInA.m[1] * mInB.m[6])+ (mInA.m[2] * mInB.m[10]) + (mInA.m[3] * mInB.m[14]);
+		mOut.m[2] =	(mInA.m[0] * mInB.m[2])	+ (mInA.m[1] * mInB.m[6]) + (mInA.m[2] * mInB.m[10]) + (mInA.m[3] * mInB.m[14]);
 		//(row1x * row1w) + (row1y * row2w) + (row1z * row3w) + (row1w * row4w)
 		mOut.m[3] = (mInA.m[0] * mInB.m[3])	+ (mInA.m[1] * mInB.m[7]) + (mInA.m[2] * mInB.m[11]) + (mInA.m[3] * mInB.m[15]);
 

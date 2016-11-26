@@ -27,7 +27,7 @@ namespace Maths
 		@param y The inputed y position.
 		@param z The inputed z position.
 		*/
-		Vec3(float x, float y, float z) : x(x), y(y), z() {}
+		Vec3(float x, float y, float z) : x(x), y(y), z(z) {}
 
 		/**
 		@brief Constructs the Vec3 setting the values to the input coordinates.

@@ -83,10 +83,26 @@ private:
 	void loadingScreen();
 
 	/**
-	Draws a PerformanceScreen.
+	Initialise 10 sets of matrixs and quats.
 	*/
-	void performanceScreen();
+	void init10MatQuats();
 
-	//tmp for testing
-	float angleUpdate;
+	/**
+	Initialise 100 sets of matrixs and quats.
+	*/
+	void init100MatQuats();
+
+	/**
+	Initialise 1000 sets of matrixs and quats.
+	*/
+	void init1000MatQuats();
+
+	/**
+	Initialise 10000 sets of matrixs and quats.
+	*/
+	void init10000MatQuats();
+
+	void performanceTest();
+
+	void memoryTest();
 };

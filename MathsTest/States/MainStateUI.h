@@ -49,7 +49,7 @@ public:
 	void updateAxis(char axis);
 	void updateMethod(char method);
 	void updateNumberOfRotations(int rotations);
-	void updateMemory(float memory);
+	void updateMemory(int memory);
 
 	char getAxis() { return axis; }
 	int getRotations() { return rotations; }
@@ -71,6 +71,7 @@ private:
 	UIObject * set10Text;
 	UIObject * set100Text;
 	UIObject * set1000Text;
+	UIObject * set10000Text;
 	///The performance texts
 	UIObject * timeText;
 	UIObject * memoryText;

@@ -16,14 +16,8 @@ MainState::MainState(StateManager * stateManager, SDL_Window* window, int screen
 	//create the sam model
 	sam = new Sam(objects, shaders);
 	
-	//initialise the matrixs
-	for (int i = 0; i < userInterface->getRotations(); i++)
-	{
-		matrix.push_back(Maths::Mat4());
-		matrix[i].setAsIdentityMatrix();
-		matrix[i].scale(matrix[i], 0.04f);
-		matrix[i].translate(matrix[i], Maths::Vec3(((float)(i) - 4.5f) * 25.0f, 0.0f, 0.0f));
-	}
+	//initialise the matrixs and quats
+	init10MatQuats();
 
 	//initialise the quaternions
 	for (int i = 0; i < userInterface->getRotations(); i++)
@@ -36,9 +30,6 @@ MainState::MainState(StateManager * stateManager, SDL_Window* window, int screen
 	
 	//initialise the performance tester
 	tester = new Core::PerformanceTest();
-
-	//tmp for testing
-	angleUpdate = 0.0f;
 }
 
 MainState::~MainState()
@@ -87,58 +78,8 @@ bool MainState::input()
 				break;
 
 			case SDLK_SPACE:
-				//performanceScreen();
-				switch (userInterface->getMethod())
-				{
-				case 'm':
-					tester->testStart();
-					for (int i = 0; i < userInterface->getRotations(); i++)
-					{
-						switch (userInterface->getAxis())
-						{
-						case 'x':
-							matrix[i].rotateAlongX(matrix[i], 90.0f, Maths::angleType::degree);
-							break;
-
-						case 'y':
-							matrix[i].rotateAlongY(matrix[i], 90.0f, Maths::angleType::degree);
-							break;
-
-						case 'z':
-							matrix[i].rotateAlongZ(matrix[i], 90.0f, Maths::angleType::degree);
-							break;
-						}
-					}
-					userInterface->updateTime(tester->testFinish() * 0.001f);
-					break;
-
-				case 'q':
-					tester->testStart();
-					for (int i = 0; i < userInterface->getRotations(); i++)
-					{
-						switch (userInterface->getAxis())
-						{
-						case 'x':
-							quats[i].rotate(quats[i], Maths::Vec3(1.0f, 0.0f, 0.0f), 90.0f, Maths::angleType::degree);
-							break;
-
-						case 'y':
-							quats[i].rotate(quats[i], Maths::Vec3(0.0f, 1.0f, 0.0f), 90.0f, Maths::angleType::degree);
-							break;
-
-						case 'z':
-							quats[i].rotate(quats[i], Maths::Vec3(0.0f, 0.0f, 1.0f), 90.0f, Maths::angleType::degree);
-							break;
-						}
-					}
-					userInterface->updateTime(tester->testFinish() * 0.001f);
-					for (int i = 0; i < userInterface->getRotations(); i++)
-					{
-						matrix[i] = matrix[i] * quats[i].getMatrix();
-					}
-					break;
-				}
-				//loadingScreen();
+				performanceTest();
+				memoryTest();
 				break;
 
 			case SDLK_x:
@@ -162,72 +103,19 @@ bool MainState::input()
 				break;
 
 			case SDLK_1:
-				userInterface->updateNumberOfRotations(10);
-				loadingScreen();
-				matrix.clear();
-				quats.clear();
-				for (int i = 0; i < userInterface->getRotations(); i++)
-				{
-					matrix.push_back(Maths::Mat4());
-					matrix[i].setAsIdentityMatrix();
-					matrix[i].scale(matrix[i], 0.04f);
-					matrix[i].translate(matrix[i], Maths::Vec3(((float)(i)-4.5f) * 25.0f, 0.0f, 0.0f));
-				}
-				for (int i = 0; i < userInterface->getRotations(); i++)
-				{
-					quats.push_back(Maths::Quaternion());
-				}
+				init10MatQuats();
 				break;
 
 			case SDLK_2:
-				userInterface->updateNumberOfRotations(100);
-				loadingScreen();
-				matrix.clear();
-				quats.clear();
-				for (int y = 0; y < 10; y++)
-				{
-					for (int x = 0; x < 10; x++)
-					{
-						matrix.push_back(Maths::Mat4());
-						matrix[matrix.size()-1].setAsIdentityMatrix();
-						matrix[matrix.size()-1].scale(matrix[matrix.size()-1], 0.03f);
-						matrix[matrix.size()-1].translate(
-							matrix[matrix.size()-1], 
-							Maths::Vec3((x - 4.5f) * 25.0f, (y - 6.5f) * 25.0f, 0.0f)
-							);
-					}
-				}
-				for (int i = 0; i < userInterface->getRotations(); i++)
-				{
-					quats.push_back(Maths::Quaternion());
-				}
+				init100MatQuats();
 				break;
 
 			case SDLK_3:
-				userInterface->updateNumberOfRotations(1000);
-				loadingScreen();
-				matrix.clear();
-				quats.clear();
-				for (int y = 0; y < 10; y++)
-				{
-					for (int x = 0; x < 10; x++)
-					{
-						for (int z = 0; z < 10; z++)
-						{
-							matrix.push_back(Maths::Mat4());
-							matrix[matrix.size() - 1].setAsIdentityMatrix();
-							matrix[matrix.size() - 1].scale(matrix[matrix.size() - 1], 0.03f);
-							matrix[matrix.size() - 1].translate(
-								matrix[matrix.size() - 1],
-								Maths::Vec3((x - 4.5f) * 25.0f, (y - 6.5f) * 25.0f, z * 25.0f)
-							);
-						}
-					}
-				}
-				for (int i = 0; i < userInterface->getRotations(); i++)
-				{
-					quats.push_back(Maths::Quaternion());
-				}
+				init1000MatQuats();
+				break;
+
+			case SDLK_4:
+				init10000MatQuats();
 				break;
 			}
 		}
@@ -237,13 +125,6 @@ bool MainState::input()
 
 void MainState::update(float dt)
 {
-	/*angleUpdate = (20.0f * dt);
-	Maths::Quaternion t;
-	t.rotate(t, Maths::Vec3(0.0f, 1.0f, 0.0f), angleUpdate, Maths::angleType::degree);
-	for (int i = 0; i < userInterface->getRotations(); i++)
-	{
-		matrix[i] = matrix[i] * t.getMatrix();
-	}*/
 }
 
 void MainState::draw()
@@ -272,16 +153,178 @@ void MainState::loadingScreen()
 	SDL_GL_SwapWindow(window);
 }
 
-void MainState::performanceScreen()
+void MainState::init10MatQuats()
 {
-	//clear the frame-buffer to a colour
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	//write colour to the frame-buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	userInterface->updateNumberOfRotations(10);
+	loadingScreen();
+	matrix.clear();
+	quats.clear();
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		matrix.push_back(Maths::Mat4());
+		matrix[i].setAsIdentityMatrix();
+		matrix[i].scale(matrix[i], 0.04f);
+		matrix[i].translate(matrix[i], Maths::Vec3(((float)(i)-4.5f) * 25.0f, 0.0f, 0.0f));
+	}
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		quats.push_back(Maths::Quaternion());
+	}
+}
 
-	//draw the loading screen
-	userInterface->drawPerformance();
+void MainState::init100MatQuats()
+{
+	userInterface->updateNumberOfRotations(100);
+	loadingScreen();
+	matrix.clear();
+	quats.clear();
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 10; x++)
+		{
+			matrix.push_back(Maths::Mat4());
+			matrix[matrix.size() - 1].setAsIdentityMatrix();
+			matrix[matrix.size() - 1].scale(matrix[matrix.size() - 1], 0.03f);
+			matrix[matrix.size() - 1].translate(
+				matrix[matrix.size() - 1],
+				Maths::Vec3((x - 4.5f) * 25.0f, (y - 6.5f) * 25.0f, 0.0f)
+			);
+		}
+	}
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		quats.push_back(Maths::Quaternion());
+	}
+}
 
-	//display the window
-	SDL_GL_SwapWindow(window);
+void MainState::init1000MatQuats()
+{
+	userInterface->updateNumberOfRotations(1000);
+	loadingScreen();
+	matrix.clear();
+	quats.clear();
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 10; x++)
+		{
+			for (int z = 0; z < 10; z++)
+			{
+				matrix.push_back(Maths::Mat4());
+				matrix[matrix.size() - 1].setAsIdentityMatrix();
+				matrix[matrix.size() - 1].scale(matrix[matrix.size() - 1], 0.03f);
+				matrix[matrix.size() - 1].translate(
+					matrix[matrix.size() - 1],
+					Maths::Vec3((x - 4.5f) * 25.0f, (y - 6.5f) * 25.0f, z * 25.0f)
+				);
+			}
+		}
+	}
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		quats.push_back(Maths::Quaternion());
+	}
+}
+
+void MainState::init10000MatQuats()
+{
+	userInterface->updateNumberOfRotations(10000);
+	loadingScreen();
+	matrix.clear();
+	quats.clear();
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 10; x++)
+		{
+			for (int z = 0; z < 100; z++)
+			{
+				matrix.push_back(Maths::Mat4());
+				matrix[matrix.size() - 1].setAsIdentityMatrix();
+				matrix[matrix.size() - 1].scale(matrix[matrix.size() - 1], 0.03f);
+				matrix[matrix.size() - 1].translate(
+					matrix[matrix.size() - 1],
+					Maths::Vec3((x - 4.5f) * 25.0f, (y - 6.5f) * 25.0f, z * 25.0f)
+				);
+			}
+		}
+	}
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		quats.push_back(Maths::Quaternion());
+	}
+}
+
+void MainState::performanceTest()
+{
+	switch (userInterface->getMethod())
+	{
+	case 'm':
+		tester->testStart();
+		for (int i = 0; i < userInterface->getRotations(); i++)
+		{
+			switch (userInterface->getAxis())
+			{
+			case 'x':
+				matrix[i].rotateAlongX(matrix[i], 90.0f, Maths::angleType::degree);
+				break;
+
+			case 'y':
+				matrix[i].rotateAlongY(matrix[i], 90.0f, Maths::angleType::degree);
+				break;
+
+			case 'z':
+				matrix[i].rotateAlongZ(matrix[i], 90.0f, Maths::angleType::degree);
+				break;
+			}
+		}
+		userInterface->updateTime(tester->testFinish() * 0.001f);
+		break;
+
+	case 'q':
+		tester->testStart();
+		for (int i = 0; i < userInterface->getRotations(); i++)
+		{
+			switch (userInterface->getAxis())
+			{
+			case 'x':
+				quats[i].rotate(quats[i], Maths::Vec3(1.0f, 0.0f, 0.0f), 90.0f, Maths::angleType::degree);
+				break;
+
+			case 'y':
+				quats[i].rotate(quats[i], Maths::Vec3(0.0f, 1.0f, 0.0f), 90.0f, Maths::angleType::degree);
+				break;
+
+			case 'z':
+				quats[i].rotate(quats[i], Maths::Vec3(0.0f, 0.0f, 1.0f), 90.0f, Maths::angleType::degree);
+				break;
+			}
+		}
+		userInterface->updateTime(tester->testFinish() * 0.001f);
+		for (int i = 0; i < userInterface->getRotations(); i++)
+		{
+			matrix[i] = matrix[i] * quats[i].getMatrix();
+		}
+		break;
+	}
+}
+
+void MainState::memoryTest()
+{
+	int numberOfBytes = 0;
+	switch (userInterface->getMethod())
+	{
+	case 'm':
+		for (int i = 0; i < userInterface->getRotations(); i++)
+		{
+			numberOfBytes += sizeof(matrix[i]);
+		}
+		break;
+
+	case 'q':
+		for (int i = 0; i < userInterface->getRotations(); i++)
+		{
+			numberOfBytes += sizeof(quats[i]);
+		}
+		break;
+	}
+	userInterface->updateMemory(numberOfBytes);
 }
