@@ -9,12 +9,6 @@
 */
 namespace Maths
 {
-	///An enum for the type of angle
-	enum angleType {
-		radian,
-		degree
-	};
-
 	/**
 	@brief Contains the Mat4 structure with functions and overloaded operators. This is row major.
 	*/
@@ -140,25 +134,25 @@ namespace Maths
 		@brief Rotate the matrix using the angle of rotation along the x axis.
 		@param matrix A pointer to the matrix to rotate.
 		@param angle The angle to rotate the matrix by.
-		@param format The type of angle, can be either Degree or Radian
+		@param format The type of angle, must be a Radian
 		*/
-		void rotateAlongX(Mat4 &matrix, float angle, angleType format);
+		void rotateAlongX(Mat4 &matrix, float angle);
 
 		/**
 		@brief Rotate the matrix using the angle of rotation along the y axis.
 		@param matrix A pointer to the matrix to rotate.
 		@param angle The angle to rotate the matrix by.
-		@param format The type of angle, can be either Degree or Radian
+		@param format The type of angle, must be a Radian
 		*/
-		void rotateAlongY(Mat4 &matrix, float angle, angleType format);
+		void rotateAlongY(Mat4 &matrix, float angle);
 
 		/**
 		@brief Rotate the matrix using the angle of rotation along the z axis.
 		@param matrix A pointer to the matrix to rotate.
 		@param angle The angle to rotate the matrix by.
-		@param format The type of angle, can be either Degree or Radian
+		@param format The type of angle, must be a Radian
 		*/
-		void rotateAlongZ(Mat4 &matrix, float angle, angleType format);
+		void rotateAlongZ(Mat4 &matrix, float angle);
 
 		/**
 		@brief Gets the position of the matrix

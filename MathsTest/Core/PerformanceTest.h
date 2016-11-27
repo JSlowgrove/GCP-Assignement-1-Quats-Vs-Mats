@@ -1,6 +1,7 @@
 #pragma once
 #include <windows.h>
 #include <cstdint>
+#include "Logging.h"
 
 /**
 @brief The namespace for all core code.

@@ -33,17 +33,11 @@ namespace Maths
 		matrix = matrix * tm;
 	}
 
-	void Mat4::rotateAlongX(Mat4 &matrix, float angle, angleType format) //uses row2y, row2z, row3y & row3z
+	void Mat4::rotateAlongX(Mat4 &matrix, float angle) //uses row2y, row2z, row3y & row3z
 	{
 		//make a temporary identity matrix
 		Mat4 tm;
 		tm.setAsIdentityMatrix();
-
-		//make sure the format of the angle is radians 
-		if (format == degree)
-		{
-			angle = Convert::convertDegreeToRadian(angle);
-		}
 
 		/*x		y								z									  w*/
 		/*x*/	tm.m[5] = float(cos(angle));	tm.m[6] = float(sin(angle));		/*w*/
@@ -54,17 +48,11 @@ namespace Maths
 		matrix = matrix * tm;
 	}
 
-	void Mat4::rotateAlongY(Mat4 &matrix, float angle, angleType format) //uses row1x, row1z, row3x & row3z
+	void Mat4::rotateAlongY(Mat4 &matrix, float angle) //uses row1x, row1z, row3x & row3z
 	{
 		//make a temporary identity matrix
 		Mat4 tm;
 		tm.setAsIdentityMatrix();
-
-		//make sure the format of the angle is radians 
-		if (format == degree)
-		{
-			angle = Convert::convertDegreeToRadian(angle);
-		}
 
 		tm.m[0] = float(cos(angle));	/*y*/		tm.m[2] = float(sin(angle));	/*w*/
 		/*x								  y			z								  w*/
@@ -75,18 +63,12 @@ namespace Maths
 		matrix = matrix * tm;
 	}
 
-	void Mat4::rotateAlongZ(Mat4 &matrix, float angle, angleType format) //uses row1x, row1y, row2x & row2y
+	void Mat4::rotateAlongZ(Mat4 &matrix, float angle) //uses row1x, row1y, row2x & row2y
 	{
 		//make a temporary identity matrix
 		Mat4 tm;
 		tm.setAsIdentityMatrix();
-
-		//make sure the format of the angle is radians 
-		if (format == degree)
-		{
-			angle = Convert::convertDegreeToRadian(angle);
-		}
-
+		
 		tm.m[0] = float(cos(angle));	tm.m[1] = float(sin(angle));	/*z			w*/
 		tm.m[4] = float(-sin(angle));	tm.m[5] = float(cos(angle));	/*z			w*/
 		/*x								y								  z			w*/

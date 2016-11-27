@@ -101,7 +101,8 @@ void MainStateUI::updateTime(float time)
 {
 	//set floating point precision of the results
 	std::stringstream stream;
-	stream << std::fixed << std::setprecision(3) << time;
+	stream.precision(3);
+	stream << std::fixed << time;
 	std::string s = stream.str();
 
 	//convert the time to text

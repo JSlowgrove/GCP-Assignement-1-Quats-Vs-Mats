@@ -19,16 +19,26 @@ namespace Core
 
 	uint64_t PerformanceTest::testFinish()
 	{
-		LARGE_INTEGER elapsedTime;
+		LARGE_INTEGER endingTime, elapsedMicroseconds;
 
-		QueryPerformanceCounter(&elapsedTime);
-		elapsedTime.QuadPart -= startingTime.QuadPart;
+		QueryPerformanceCounter(&endingTime);
+		elapsedMicroseconds.QuadPart = endingTime.QuadPart - startingTime.QuadPart;
 
-		// To guard against loss-of-precision, we convert to microseconds before dividing by ticks-per-second.
-		elapsedTime.QuadPart *= 1000000;
-		elapsedTime.QuadPart /= frequency.QuadPart;
 
-		return uint64_t(elapsedTime.QuadPart);
+		//
+		// We now have the elapsed number of ticks, along with the
+		// number of ticks-per-second. We use these values
+		// to convert to the number of elapsed microseconds.
+		// To guard against loss-of-precision, we convert
+		// to microseconds *before* dividing by ticks-per-second.
+		//
+
+		elapsedMicroseconds.QuadPart *= 1000000;
+		elapsedMicroseconds.QuadPart /= frequency.QuadPart;
+
+		Logging::logI(std::to_string(elapsedMicroseconds.QuadPart));
+
+		return uint64_t(elapsedMicroseconds.QuadPart);
 	}
 
 }//End of Core namespace

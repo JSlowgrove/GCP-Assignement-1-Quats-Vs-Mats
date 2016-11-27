@@ -158,7 +158,9 @@ void MainState::init10MatQuats()
 	userInterface->updateNumberOfRotations(10);
 	loadingScreen();
 	matrix.clear();
+	matrix.shrink_to_fit();
 	quats.clear();
+	quats.shrink_to_fit();
 	for (int i = 0; i < userInterface->getRotations(); i++)
 	{
 		matrix.push_back(Maths::Mat4());
@@ -177,7 +179,9 @@ void MainState::init100MatQuats()
 	userInterface->updateNumberOfRotations(100);
 	loadingScreen();
 	matrix.clear();
+	matrix.shrink_to_fit();
 	quats.clear();
+	quats.shrink_to_fit();
 	for (int y = 0; y < 10; y++)
 	{
 		for (int x = 0; x < 10; x++)
@@ -202,7 +206,9 @@ void MainState::init1000MatQuats()
 	userInterface->updateNumberOfRotations(1000);
 	loadingScreen();
 	matrix.clear();
+	matrix.shrink_to_fit();
 	quats.clear();
+	quats.shrink_to_fit();
 	for (int y = 0; y < 10; y++)
 	{
 		for (int x = 0; x < 10; x++)
@@ -230,7 +236,9 @@ void MainState::init10000MatQuats()
 	userInterface->updateNumberOfRotations(10000);
 	loadingScreen();
 	matrix.clear();
+	matrix.shrink_to_fit();
 	quats.clear();
+	quats.shrink_to_fit();
 	for (int y = 0; y < 10; y++)
 	{
 		for (int x = 0; x < 10; x++)
@@ -258,47 +266,37 @@ void MainState::performanceTest()
 	switch (userInterface->getMethod())
 	{
 	case 'm':
-		tester->testStart();
-		for (int i = 0; i < userInterface->getRotations(); i++)
+		switch (userInterface->getAxis())
 		{
-			switch (userInterface->getAxis())
-			{
-			case 'x':
-				matrix[i].rotateAlongX(matrix[i], 90.0f, Maths::angleType::degree);
-				break;
+		case 'x':
+			xAxisMatRotationTest();
+			break;
 
-			case 'y':
-				matrix[i].rotateAlongY(matrix[i], 90.0f, Maths::angleType::degree);
-				break;
+		case 'y':
+			yAxisMatRotationTest();
+			break;
 
-			case 'z':
-				matrix[i].rotateAlongZ(matrix[i], 90.0f, Maths::angleType::degree);
-				break;
-			}
+		case 'z':
+			zAxisMatRotationTest();
+			break;
 		}
-		userInterface->updateTime(tester->testFinish() * 0.001f);
 		break;
 
 	case 'q':
-		tester->testStart();
-		for (int i = 0; i < userInterface->getRotations(); i++)
+		switch (userInterface->getAxis())
 		{
-			switch (userInterface->getAxis())
-			{
-			case 'x':
-				quats[i].rotate(quats[i], Maths::Vec3(1.0f, 0.0f, 0.0f), 90.0f, Maths::angleType::degree);
-				break;
+		case 'x':
+			xAxisQuatRotationTest();
+			break;
 
-			case 'y':
-				quats[i].rotate(quats[i], Maths::Vec3(0.0f, 1.0f, 0.0f), 90.0f, Maths::angleType::degree);
-				break;
+		case 'y':
+			yAxisQuatRotationTest();
+			break;
 
-			case 'z':
-				quats[i].rotate(quats[i], Maths::Vec3(0.0f, 0.0f, 1.0f), 90.0f, Maths::angleType::degree);
-				break;
-			}
+		case 'z':
+			zAxisQuatRotationTest();
+			break;
 		}
-		userInterface->updateTime(tester->testFinish() * 0.001f);
 		for (int i = 0; i < userInterface->getRotations(); i++)
 		{
 			matrix[i] = matrix[i] * quats[i].getMatrix();
@@ -313,18 +311,85 @@ void MainState::memoryTest()
 	switch (userInterface->getMethod())
 	{
 	case 'm':
-		for (int i = 0; i < userInterface->getRotations(); i++)
-		{
-			numberOfBytes += sizeof(matrix[i]);
-		}
+		numberOfBytes = sizeof(matrix[0]) * userInterface->getRotations();
 		break;
 
 	case 'q':
-		for (int i = 0; i < userInterface->getRotations(); i++)
-		{
-			numberOfBytes += sizeof(quats[i]);
-		}
+		numberOfBytes = sizeof(quats[0]) * userInterface->getRotations();
 		break;
 	}
 	userInterface->updateMemory(numberOfBytes);
+}
+
+void MainState::xAxisMatRotationTest()
+{
+	float angle = Maths::Convert::convertDegreeToRadian(90.0f);
+
+	tester->testStart();
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		matrix[i].rotateAlongX(matrix[i], angle);
+	}
+	userInterface->updateTime(tester->testFinish() * 0.001f);
+}
+
+void MainState::yAxisMatRotationTest()
+{
+	float angle = Maths::Convert::convertDegreeToRadian(90.0f);
+
+	tester->testStart();
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		matrix[i].rotateAlongY(matrix[i], angle);
+	}
+	userInterface->updateTime(tester->testFinish() * 0.001f);
+}
+
+void MainState::zAxisMatRotationTest()
+{
+	float angle = Maths::Convert::convertDegreeToRadian(90.0f);
+
+	tester->testStart();
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		matrix[i].rotateAlongZ(matrix[i], angle);
+	}
+	userInterface->updateTime(tester->testFinish() * 0.001f);
+}
+
+void MainState::xAxisQuatRotationTest()
+{
+	float angle = Maths::Convert::convertDegreeToRadian(90.0f);
+
+	tester->testStart();
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		quats[i].rotate(quats[i], Maths::Vec3(1.0f, 0.0f, 0.0f), angle);
+	}
+	userInterface->updateTime(tester->testFinish() * 0.001f);
+}
+
+
+void MainState::yAxisQuatRotationTest()
+{
+	float angle = Maths::Convert::convertDegreeToRadian(90.0f);
+
+	tester->testStart();
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		quats[i].rotate(quats[i], Maths::Vec3(0.0f, 1.0f, 0.0f), angle);
+	}
+	userInterface->updateTime(tester->testFinish() * 0.001f);
+}
+
+void MainState::zAxisQuatRotationTest()
+{
+	float angle = Maths::Convert::convertDegreeToRadian(90.0f);
+
+	tester->testStart();
+	for (int i = 0; i < userInterface->getRotations(); i++)
+	{
+		quats[i].rotate(quats[i], Maths::Vec3(0.0f, 0.0f, 1.0f), angle);
+	}
+	userInterface->updateTime(tester->testFinish() * 0.001f);
 }

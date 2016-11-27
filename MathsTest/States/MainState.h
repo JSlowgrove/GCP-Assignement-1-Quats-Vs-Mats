@@ -15,6 +15,7 @@
 #include "../Maths/Vec4.h"
 #include "../Maths/Mat4.h"
 #include "../Maths/Quaternion.h"
+#include "../Maths/Convert.h"
 #include "../Sam.h"
 #include "MainStateUI.h"
 
@@ -105,4 +106,12 @@ private:
 	void performanceTest();
 
 	void memoryTest();
+
+	void xAxisMatRotationTest();
+	void yAxisMatRotationTest();
+	void zAxisMatRotationTest();
+
+	void xAxisQuatRotationTest();
+	void yAxisQuatRotationTest();
+	void zAxisQuatRotationTest();
 };

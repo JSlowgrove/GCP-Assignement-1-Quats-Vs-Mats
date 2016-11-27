@@ -71,6 +71,17 @@ namespace Maths
 		{
 			return float(sqrt((x*x) + (y*y) + (z*z)));
 		}
+
+		/**
+		@brief Returns the length of the Vec3.
+		@returns The length of the Vec3.
+		*/
+		Vec3 getNormalised()
+		{
+			float magnitude = getLength();
+			Vec3 normalised = Vec3(x / magnitude, y / magnitude, z / magnitude);
+			return normalised;
+		}
 	};
 
 	/**

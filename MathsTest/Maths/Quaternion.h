@@ -52,6 +52,12 @@ namespace Maths
 			return (float)sqrt((w*w) + (x*x) + (y*y) + (z*z));
 		}
 
+		float getDotProduct(Quaternion Qa, Quaternion Qb)
+		{
+			float dp = Qa.x*Qb.x + Qa.y*Qb.y + Qa.z*Qb.z + Qa.w * Qb.w;
+			return dp;
+		}
+
 		Quaternion getNormalised()
 		{
 			Quaternion normalised;
@@ -63,7 +69,9 @@ namespace Maths
 			return normalised;
 		}
 
-		void rotate(Quaternion &quat, Maths::Vec3 axis, float angle, angleType format);
+		void rotate(Quaternion &quat, Maths::Vec3 axis, float angle);
+
+		Maths::Vec3 rotatePointAroundAxis(Maths::Vec3 initalPoint, Maths::Vec3 axis, float angle);
 
 		Mat4 getMatrix();
 	};
