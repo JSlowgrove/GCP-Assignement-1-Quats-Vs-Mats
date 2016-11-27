@@ -6,5 +6,11 @@
 /MathsTest/Debug
 /MathsTest/assets
 /MathsTest/log.txt
-/Release
+/Release/MathsTest.exe
+/Release/MathsTest.exp
+/Release/MathsTest.ilk
+/Release/MathsTest.lib
+/Release/MathsTest.pdb
 /MathsTest/Release
+/Release/MathsTest.iobj
+/Release/MathsTest.ipdb
