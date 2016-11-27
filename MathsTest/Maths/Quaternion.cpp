@@ -5,16 +5,10 @@ namespace Maths
 
 	void Quaternion::rotate(Quaternion &quat, Maths::Vec3 axis, float angle)
 	{
-		Quaternion localQuat;
-		localQuat.w = cosf(angle * 0.5f);
-		localQuat.x = axis.x * sinf(angle * 0.5f);
-		localQuat.y = axis.y * sinf(angle * 0.5f);
-		localQuat.z = axis.z * sinf(angle * 0.5f);
+		axis = axis * sinf(angle * 0.5f);
 
 		//flip the y to make it rotate the same way as rotating with a matrix
-		localQuat.y = -localQuat.y;
-
-		quat = localQuat;
+		quat = Quaternion(cosf(angle * 0.5f), axis.x, -axis.y, axis.z);
 	}
 
 	Maths::Vec3 Quaternion::rotatePointAroundAxis(Maths::Vec3 initalPoint, Maths::Vec3 axis, float angle)

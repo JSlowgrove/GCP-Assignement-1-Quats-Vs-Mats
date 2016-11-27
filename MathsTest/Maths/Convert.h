@@ -1,3 +1,5 @@
+//DISCLAMER - This is a modified version of code from one of my other assignments.
+
 #pragma once
 
 #include "MathsDefs.h"

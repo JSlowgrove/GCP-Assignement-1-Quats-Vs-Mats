@@ -1,3 +1,5 @@
+//DISCLAMER - This is a modified version of code from one of my other assignments.
+
 #pragma once
 
 #include "math.h"
@@ -73,8 +75,8 @@ namespace Maths
 		}
 
 		/**
-		@brief Returns the length of the Vec3.
-		@returns The length of the Vec3.
+		@brief Returns a normalised version of the Vec3.
+		@returns The normalised Vec3.
 		*/
 		Vec3 getNormalised()
 		{

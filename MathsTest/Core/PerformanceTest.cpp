@@ -38,7 +38,7 @@ namespace Core
 
 		Logging::logI(std::to_string(elapsedMicroseconds.QuadPart));
 
-		return uint64_t(elapsedMicroseconds.QuadPart);
+		return elapsedMicroseconds.QuadPart;
 	}
 
 }//End of Core namespace

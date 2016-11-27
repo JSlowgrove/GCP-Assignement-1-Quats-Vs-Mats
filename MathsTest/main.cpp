@@ -1,3 +1,5 @@
+//DISCLAMER - This is a modified version of code from one of my other assignments.
+
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
@@ -96,7 +98,7 @@ int main(int argc, char *argv[])
 	int winPosY = 100;
 	int winWidth = 720;
 	int winHeight = 576;
-	SDL_Window *window = SDL_CreateWindow("Maths Assignment 1",  /*The first parameter is the window title*/
+	SDL_Window *window = SDL_CreateWindow("GCP Assignment 1",  /*The first parameter is the window title*/
 		winPosX, winPosY,
 		winWidth, winHeight,
 		SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);

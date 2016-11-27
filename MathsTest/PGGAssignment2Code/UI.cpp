@@ -1,54 +1,41 @@
-//DISCLAMER - This was originaly from my PGG assignment 2.
+//DISCLAMER - This is a modified version of code from one of my other assignments.
 
 #include "UI.h"
 
-/**************************************************************************************************************/
-
-/*Constructs the UI object*/
 UI::UI(std::string vertexShaderFileName, std::string fragmentShaderFileName,
 	std::unordered_map<std::string, Shader*> &shaders)
 {
-	/*initialise the shaders for the UI*/
+	//initialise the shaders for the UI
 	initialiseShaders(vertexShaderFileName, fragmentShaderFileName, shaders);
 }
 
-/**************************************************************************************************************/
-
-/*Constructs the UI object*/
 UI::UI(std::unordered_map<std::string, Shader*> &shaders)
 {
-	/*initialise the shaders for the UI*/
+	//initialise the shaders for the UI
 	initialiseShaders("2d.texture", "2d.texture", shaders);
 }
 
-
-/**************************************************************************************************************/
-
-/*Initialise the shaders.*/
 void UI::initialiseShaders(std::string vertexShaderFileName, std::string fragmentShaderFileName,
 	std::unordered_map<std::string, Shader*> &shaders)
 {
-	/*a string for the name of the linked shader*/
+	//a string for the name of the linked shader
 	std::string linkedShaderName = vertexShaderFileName + "/" + fragmentShaderFileName;
 
-	/*test if the shader has already been loaded*/
+	//test if the shader has already been loaded
 	if (shaders.count(linkedShaderName) == 0)
 	{
-		/*load the shader*/
+		//load the shader
 		shaders[linkedShaderName] = new Shader(vertexShaderFileName, fragmentShaderFileName);
 	}
 	else
 	{
-		/*print out that it is already loaded*/
+		//print out that it is already loaded
 		Core::Logging::logE(linkedShaderName + " shader already loaded.");
 	}
-	/*initialise the object*/
+	//initialise the object
 	shader = shaders[linkedShaderName];
 }
 
-/**************************************************************************************************************/
-
-/*Destructs the UI object*/
 UI::~UI()
 {
 }
