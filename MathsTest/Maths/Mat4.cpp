@@ -2,6 +2,16 @@
 
 namespace Maths
 {
+	void Mat4::setPos(Mat4 &matrix, Vec3 pos)
+	{
+		//reset the matrix position to 0,0,0
+		matrix.m[3] = 0.0f;
+		matrix.m[7] = 0.0f;
+		matrix.m[11] = 0.0f;
+
+		//translate to the new position
+		translate(matrix, pos);
+	}
 
 	void Mat4::scale(Mat4 &matrix, float sv) //uses row1x, row2y & row3z
 	{
@@ -68,7 +78,7 @@ namespace Maths
 		//make a temporary identity matrix
 		Mat4 tm;
 		tm.setAsIdentityMatrix();
-		
+
 		tm.m[0] = float(cos(angle));	tm.m[1] = float(sin(angle));	/*z			w*/
 		tm.m[4] = float(-sin(angle));	tm.m[5] = float(cos(angle));	/*z			w*/
 		/*x								y								  z			w*/
@@ -76,6 +86,42 @@ namespace Maths
 
 		//multiply the current matrix with the temporary matrix
 		matrix = matrix * tm;
+	}
+
+	void Mat4::rotatePointAroundXAxis(Mat4 &matrix, Maths::Vec3 axisPoint, float angle)
+	{
+		//translate back to the axis
+		matrix.translate(matrix, -axisPoint);
+
+		//rotate the matrix along the axis
+		matrix.rotateAlongX(matrix, angle);
+
+		//translate to the new point
+		matrix.translate(matrix, axisPoint);
+	}
+
+	void Mat4::rotatePointAroundYAxis(Mat4 &matrix, Maths::Vec3 axisPoint, float angle)
+	{
+		//translate back to the axis
+		matrix.translate(matrix, -axisPoint);
+
+		//rotate the matrix along the axis
+		matrix.rotateAlongY(matrix, angle);
+
+		//translate to the new point
+		matrix.translate(matrix, axisPoint);
+	}
+
+	void Mat4::rotatePointAroundZAxis(Mat4 &matrix, Maths::Vec3 axisPoint, float angle)
+	{
+		//translate back to the axis
+		matrix.translate(matrix, -axisPoint);
+
+		//rotate the matrix along the axis
+		matrix.rotateAlongZ(matrix, angle);
+
+		//translate to the new point
+		matrix.translate(matrix, axisPoint);
 	}
 
 }//End of Maths namespace

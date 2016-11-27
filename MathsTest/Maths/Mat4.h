@@ -40,7 +40,7 @@ namespace Maths
 		@param v3 The third inputed vector.
 		@param v4 The forth inputed vector.
 		*/
-		Mat4(Vec4 v1, Vec4 v2, Vec4 v3, Vec4 v4) : 
+		Mat4(Vec4 v1, Vec4 v2, Vec4 v3, Vec4 v4) :
 			m{
 			v1.x, v1.y, v1.z, v1.w,
 			v2.x, v2.y, v2.z, v2.w,
@@ -115,6 +115,7 @@ namespace Maths
 			/*x		y		z*/		m[11] = pv.z;
 			/*x		y		z		w*/
 		}
+		void setPos(Mat4 &matrix, Vec3 pos);
 
 		/**
 		@brief Scales the matrix using the input vector
@@ -154,11 +155,15 @@ namespace Maths
 		*/
 		void rotateAlongZ(Mat4 &matrix, float angle);
 
+		void rotatePointAroundXAxis(Mat4 &matrix, Maths::Vec3 axisPoint, float angle);
+		void rotatePointAroundYAxis(Mat4 &matrix, Maths::Vec3 axisPoint, float angle);
+		void rotatePointAroundZAxis(Mat4 &matrix, Maths::Vec3 axisPoint, float angle);
+
 		/**
 		@brief Gets the position of the matrix
 		@returns pv The position of the matrix as a vec3.
 		*/
-		Vec3 getPos() {	return Vec3(m[3], m[7], m[11]);	}
+		Vec3 getPos() { return Vec3(m[3], m[7], m[11]); }
 
 		/**
 		@brief A function to get a pointer to the first index of the array
@@ -265,27 +270,27 @@ namespace Maths
 		//(row1x * row1x) + (row1y * row2x) + (row1z * row3x) + (row1w * row4x)
 		mOut.m[0] = (mInA.m[0] * mInB.m[0]) + (mInA.m[1] * mInB.m[4]) + (mInA.m[2] * mInB.m[8]) + (mInA.m[3] * mInB.m[12]);
 		//(row1x * row1y) + (row1y * row2y) + (row1z * row3y) + (row1w * row4y)
-		mOut.m[1] =	(mInA.m[0] * mInB.m[1]) + (mInA.m[1] * mInB.m[5]) + (mInA.m[2] * mInB.m[9]) + (mInA.m[3] * mInB.m[13]);
+		mOut.m[1] = (mInA.m[0] * mInB.m[1]) + (mInA.m[1] * mInB.m[5]) + (mInA.m[2] * mInB.m[9]) + (mInA.m[3] * mInB.m[13]);
 		//(row1x * row1z) + (row1y * row2z) + (row1z * row3z) + (row1w * row4z)
-		mOut.m[2] =	(mInA.m[0] * mInB.m[2])	+ (mInA.m[1] * mInB.m[6]) + (mInA.m[2] * mInB.m[10]) + (mInA.m[3] * mInB.m[14]);
+		mOut.m[2] = (mInA.m[0] * mInB.m[2]) + (mInA.m[1] * mInB.m[6]) + (mInA.m[2] * mInB.m[10]) + (mInA.m[3] * mInB.m[14]);
 		//(row1x * row1w) + (row1y * row2w) + (row1z * row3w) + (row1w * row4w)
-		mOut.m[3] = (mInA.m[0] * mInB.m[3])	+ (mInA.m[1] * mInB.m[7]) + (mInA.m[2] * mInB.m[11]) + (mInA.m[3] * mInB.m[15]);
+		mOut.m[3] = (mInA.m[0] * mInB.m[3]) + (mInA.m[1] * mInB.m[7]) + (mInA.m[2] * mInB.m[11]) + (mInA.m[3] * mInB.m[15]);
 
 		//row 2
 		//(row2x * row1x) + (row2y * row2x) + (row2z * row3x) + (row2w * row4x)
-		mOut.m[4] = (mInA.m[4] * mInB.m[0])	+ (mInA.m[5] * mInB.m[4]) + (mInA.m[6] * mInB.m[8]) + (mInA.m[7] * mInB.m[12]);
+		mOut.m[4] = (mInA.m[4] * mInB.m[0]) + (mInA.m[5] * mInB.m[4]) + (mInA.m[6] * mInB.m[8]) + (mInA.m[7] * mInB.m[12]);
 		//(row2x * row1y) + (row2y * row2y) + (row2z * row3y) + (row2w * row4y)
-		mOut.m[5] =	(mInA.m[4] * mInB.m[1]) + (mInA.m[5] * mInB.m[5]) + (mInA.m[6] * mInB.m[9]) + (mInA.m[7] * mInB.m[13]);
+		mOut.m[5] = (mInA.m[4] * mInB.m[1]) + (mInA.m[5] * mInB.m[5]) + (mInA.m[6] * mInB.m[9]) + (mInA.m[7] * mInB.m[13]);
 		//(row2x * row1z) + (row2y * row2z) + (row2z * row3z) +(row2w * row4z)
-		mOut.m[6] =	(mInA.m[4] * mInB.m[2]) + (mInA.m[5] * mInB.m[6]) + (mInA.m[6] * mInB.m[10]) + (mInA.m[7] * mInB.m[14]);
+		mOut.m[6] = (mInA.m[4] * mInB.m[2]) + (mInA.m[5] * mInB.m[6]) + (mInA.m[6] * mInB.m[10]) + (mInA.m[7] * mInB.m[14]);
 		//(row2x * row1w) + (row2y * row2w) + (row2z * row3w) + (row2w * row4w)
-		mOut.m[7] =	(mInA.m[4] * mInB.m[3]) + (mInA.m[5] * mInB.m[7]) + (mInA.m[6] * mInB.m[11]) + (mInA.m[7] * mInB.m[15]);
+		mOut.m[7] = (mInA.m[4] * mInB.m[3]) + (mInA.m[5] * mInB.m[7]) + (mInA.m[6] * mInB.m[11]) + (mInA.m[7] * mInB.m[15]);
 
 		//row 3
 		//(row3x * row1x) + (row3y * row2x) + (row3z * row3x) + (row3w * row4x)
-		mOut.m[8] =	(mInA.m[8] * mInB.m[0])	+ (mInA.m[9] * mInB.m[4]) + (mInA.m[10] * mInB.m[8]) + (mInA.m[11] * mInB.m[12]);
+		mOut.m[8] = (mInA.m[8] * mInB.m[0]) + (mInA.m[9] * mInB.m[4]) + (mInA.m[10] * mInB.m[8]) + (mInA.m[11] * mInB.m[12]);
 		//(row3x * row1y) + (row3y * row2y) + (row3z * row3y) + (row3w * row4y)
-		mOut.m[9] =	(mInA.m[8] * mInB.m[1])	+ (mInA.m[9] * mInB.m[5]) + (mInA.m[10] * mInB.m[9]) + (mInA.m[11] * mInB.m[13]);
+		mOut.m[9] = (mInA.m[8] * mInB.m[1]) + (mInA.m[9] * mInB.m[5]) + (mInA.m[10] * mInB.m[9]) + (mInA.m[11] * mInB.m[13]);
 		//(row3x * row1z) + (row3y * row2z) + (row3z * row3z) + (row3w * row4z)
 		mOut.m[10] = (mInA.m[8] * mInB.m[2]) + (mInA.m[9] * mInB.m[6]) + (mInA.m[10] * mInB.m[10]) + (mInA.m[11] * mInB.m[14]);
 		//(row3x * row1w) + (row3y * row2w) + (row3z * row3w) + (row3w * row4w)
