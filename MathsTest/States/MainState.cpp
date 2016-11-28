@@ -24,9 +24,6 @@ MainState::MainState(StateManager * stateManager, SDL_Window* window, int screen
 	{
 		quats.push_back(Maths::Quaternion());
 	}
-
-	//initialise the mouse
-	mouse = Maths::Vec2(0.0f, 0.0f);
 	
 	//initialise the performance tester
 	tester = new Core::PerformanceTest();
@@ -55,12 +52,6 @@ bool MainState::input()
 	SDL_Event incomingEvent;
 	while (SDL_PollEvent(&incomingEvent))
 	{
-		//get the mouse input
-		mouse.x = ((float)incomingEvent.motion.x);
-		mouse.y = ((float)incomingEvent.motion.y);
-
-		int tmp = 0;
-
 		switch (incomingEvent.type)
 		{
 		case SDL_QUIT: //If user closes the window, end the game loop
@@ -116,6 +107,17 @@ bool MainState::input()
 
 			case SDLK_4:
 				init10000MatQuats();
+				break;
+
+			case SDLK_h:
+				if (userInterface->getHelp())
+				{
+					userInterface->setHelp(false);
+				}
+				else
+				{
+					userInterface->setHelp(true);
+				}
 				break;
 			}
 		}

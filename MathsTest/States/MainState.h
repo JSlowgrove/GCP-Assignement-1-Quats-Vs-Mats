@@ -69,8 +69,6 @@ private:
 	Sam* sam;
 	///The Camera for the program
 	Camera* camera;
-	///Current Mouse position
-	Maths::Vec2 mouse;
 	///The array of matrix's to use
 	std::vector<Maths::Mat4> matrix;
 	///The array of quaternion's to use

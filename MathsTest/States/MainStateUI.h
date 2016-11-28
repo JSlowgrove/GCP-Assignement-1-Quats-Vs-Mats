@@ -55,14 +55,18 @@ public:
 	int getRotations() { return rotations; }
 	char getMethod() { return method; }
 
+	void setHelp(bool state) { helpState = state; }
+	bool getHelp() { return helpState;  }
+
 private:
 	///The Title Image
 	UIObject * background;
+	///The help image
+	UIObject * help;
 	///Info Text
 	UIObject * axisText;
 	UIObject * numberOfRotationsText;
 	UIObject * rotationMethodText;
-	///The button texts
 	UIObject * matrixText;
 	UIObject * quatText;
 	UIObject * xText;
@@ -72,6 +76,7 @@ private:
 	UIObject * set100Text;
 	UIObject * set1000Text;
 	UIObject * set10000Text;
+	UIObject * helpText;
 	///The performance texts
 	UIObject * timeText;
 	UIObject * memoryText;
@@ -82,4 +87,6 @@ private:
 	char axis;
 	int rotations;
 	char method;
+	///if the help should be displayed
+	bool helpState;
 };

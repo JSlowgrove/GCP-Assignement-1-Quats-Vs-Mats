@@ -1,7 +1,7 @@
 #include "MainStateUI.h"
 
 MainStateUI::MainStateUI(std::unordered_map<std::string, Shader*> &shaders)
-	: UI(shaders), axis('x'), rotations(10), method('m')
+	: UI(shaders), axis('x'), rotations(10), method('m'), helpState(false)
 {
 	//Initialise background
 
@@ -13,6 +13,15 @@ MainStateUI::MainStateUI(std::unordered_map<std::string, Shader*> &shaders)
 	}
 	background = new UIObject(0.0f, 0.0f, 200.0f, 200.0f, image);
 
+	//Initialise help
+	image = IMG_Load("assets/img/help.png");
+	if (!image)
+	{
+		Core::Logging::logI("Unable to load image from: img/help.png");
+
+	}
+	help = new UIObject(0.0f, 0.0f, 200.0f, 200.0f, image);
+
 	//Initialise text
 
 	TTF_Font* font = TTF_OpenFont("assets/font/isl_jupiter.ttf", 100);
@@ -23,6 +32,7 @@ MainStateUI::MainStateUI(std::unordered_map<std::string, Shader*> &shaders)
 	}
 	SDL_Color fontColour = { 255, 255, 255 };
 	SDL_Color selectedFontColour = { 0, 0, 255 };
+	SDL_Color fontColourHelp = { 0, 255, 0 };
 
 	//info text
 	SDL_Surface *text = TTF_RenderText_Blended(font, "Rotation axis:", fontColour);
@@ -31,8 +41,6 @@ MainStateUI::MainStateUI(std::unordered_map<std::string, Shader*> &shaders)
 	rotationMethodText = new UIObject(10.0f, 10.0f, 40.0f, 10.0f, text);
 	text = TTF_RenderText_Blended(font, "Number of rotations:", fontColour);
 	numberOfRotationsText = new UIObject(115.0f, 10.0f, 75.0f, 10.0f, text);
-
-	//button text
 	text = TTF_RenderText_Blended(font, "Matrix", selectedFontColour);
 	matrixText = new UIObject(10.0f, 20.0f, 40.0f, 10.0f, text);
 	text = TTF_RenderText_Blended(font, "Quaternion", fontColour);
@@ -51,6 +59,8 @@ MainStateUI::MainStateUI(std::unordered_map<std::string, Shader*> &shaders)
 	set1000Text = new UIObject(145.0f, 20.0f, 15.0f, 10.0f, text);
 	text = TTF_RenderText_Blended(font, "10000", fontColour);
 	set10000Text = new UIObject(160.0f, 20.0f, 15.0f, 10.0f, text);
+	text = TTF_RenderText_Blended(font, "Press H for help", fontColourHelp);
+	helpText = new UIObject(60.0f, 0.0f, 80.0f, 10.0f, text);
 
 	//performance text
 	text = TTF_RenderText_Blended(font, "Time Taken: -ms", fontColour);
@@ -91,6 +101,8 @@ MainStateUI::~MainStateUI()
 	delete memoryText;
 	delete loadingText;
 	delete performanceText;
+	delete helpText;
+	delete help;
 }
 
 void MainStateUI::update(float dt)
@@ -319,6 +331,12 @@ void MainStateUI::draw()
  	set100Text->draw(shader);
 	set1000Text->draw(shader);
 	set10000Text->draw(shader);
+	helpText->draw(shader);
+
+	if (helpState)
+	{
+		help->draw(shader);
+	}
 
 	//enable the depth test for the 3D next loop
 	glEnable(GL_DEPTH_TEST);
