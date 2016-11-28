@@ -70,9 +70,7 @@ namespace Maths
 		}
 
 		void rotate(Quaternion &quat, Maths::Vec3 axis, float angle);
-
-		Maths::Vec3 rotatePointAroundAxis(Maths::Vec3 initalPoint, Maths::Vec3 axis, float angle);
-
+		
 		Mat4 getMatrix();
 	};
 
