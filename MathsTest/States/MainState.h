@@ -26,7 +26,7 @@ class MainState : public State
 {
 public:
 	/**
-	Constructs a MainState.
+	@brief Constructs a MainState.
 	@param stateManager A pointer to the StateManager.
 	@param window A pointer to the window.
 	@param screenWidth The screen width.
@@ -35,24 +35,24 @@ public:
 	MainState(StateManager* stateManager, SDL_Window* window, int screenWidth, int screenHeight);
 
 	/**
-	Destructs a MainState object.
+	@brief Destructs a MainState object.
 	*/
 	~MainState();
 
 	/**
-	Handles the MainState input.
+	@brief Handles the MainState input.
 	@returns If false then quit the MainMenu State.
 	*/
 	bool input();
 
 	/**
-	A function to update the MainState.
+	@brief A function to update the MainState.
 	@param dt The delta time.
 	*/
 	void update(float dt);
 
 	/**
-	A function to draw to the screen.
+	@brief A function to draw to the screen.
 	*/
 	void draw();
 
@@ -77,39 +77,67 @@ private:
 	Core::PerformanceTest* tester;
 
 	/**
-	Draws a LoadingScreen.
+	@brief Draws a LoadingScreen.
 	*/
 	void loadingScreen();
 
 	/**
-	Initialise 10 sets of matrixs and quats.
+	@brief Initialise 10 sets of matrixs and quats.
 	*/
 	void init10MatQuats();
 
 	/**
-	Initialise 100 sets of matrixs and quats.
+	@brief Initialise 100 sets of matrixs and quats.
 	*/
 	void init100MatQuats();
 
 	/**
-	Initialise 1000 sets of matrixs and quats.
+	@brief Initialise 1000 sets of matrixs and quats.
 	*/
 	void init1000MatQuats();
 
 	/**
-	Initialise 10000 sets of matrixs and quats.
+	@brief Initialise 10000 sets of matrixs and quats.
 	*/
 	void init10000MatQuats();
 
+	/**
+	@brief Runs the performance test.
+	*/
 	void performanceTest();
 
+	/**
+	@brief Runs the memory test.
+	*/
 	void memoryTest();
 
+	/**
+	@brief Runs the matrix performance test of the X axis.
+	*/
 	void xAxisMatRotationTest();
+
+	/**
+	@brief Runs the matrix performance test of the Y axis.
+	*/
 	void yAxisMatRotationTest();
+
+	/**
+	@brief Runs the matrix performance test of the Z axis.
+	*/
 	void zAxisMatRotationTest();
 
+	/**
+	@brief Runs the quat performance test of the X axis.
+	*/
 	void xAxisQuatRotationTest();
+
+	/**
+	@brief Runs the quat performance test of the Y axis.
+	*/
 	void yAxisQuatRotationTest();
+
+	/**
+	@brief Runs the quat performance test of the Z axis.
+	*/
 	void zAxisQuatRotationTest();
 };

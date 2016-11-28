@@ -43,19 +43,70 @@ public:
 	@brief A function to draw to the loading text to the screen.
 	*/
 	void drawLoading() { loadingText->draw(shader); }
+
+	/**
+	@brief A function to draw to the performance text to the screen.
+	*/
 	void drawPerformance() { performanceText->draw(shader); }
 
+	/**
+	@brief A function to update the time text.
+	@param time The time to update the text to.
+	*/
 	void updateTime(float time);
+
+	/**
+	@brief A function to update the axis.
+	@param axis The axis to switch to.
+	*/
 	void updateAxis(char axis);
+
+	/**
+	@brief A function to update the method.
+	@param method The method to switch to.
+	*/
 	void updateMethod(char method);
+
+	/**
+	@brief A function to update the number of rotations.
+	@param rotations The number of rotations to switch to.
+	*/
 	void updateNumberOfRotations(int rotations);
+
+	/**
+	@brief A function to update the memory text.
+	@param memory The memory to update the text to.
+	*/
 	void updateMemory(int memory);
 
+	/**
+	@brief A function to get the current axis.
+	@returns The current axis.
+	*/
 	char getAxis() { return axis; }
+
+	/**
+	@brief A function to get the current number of rotations.
+	@returns The current number of rotations.
+	*/
 	int getRotations() { return rotations; }
+
+	/**
+	@brief A function to get the current method.
+	@returns The current method.
+	*/
 	char getMethod() { return method; }
 
+	/**
+	@brief A function to set the help state.
+	@param state The state of help.
+	*/
 	void setHelp(bool state) { helpState = state; }
+
+	/**
+	@brief A function to get the current help state.
+	@returns The current help state.
+	*/
 	bool getHelp() { return helpState;  }
 
 private:

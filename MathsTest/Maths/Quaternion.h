@@ -15,6 +15,7 @@ namespace Maths
 	*/
 	struct Quaternion
 	{
+		///the variables for the Quaternions
 		float w;
 		float x;
 		float y;
@@ -44,20 +45,30 @@ namespace Maths
 		Quaternion(int w, int x, int y, int z) : w((float)w), x((float)x), y((float)y), z((float)z) {}
 
 		/**
-		@brief Returns the length of the Vec4.
-		@returns The length of the Vec4.
+		@brief Returns the length of the Quaternion.
+		@returns The length of the Quaternion.
 		*/
 		float getLength()
 		{
 			return (float)sqrt((w*w) + (x*x) + (y*y) + (z*z));
 		}
 
+		/**
+		@brief Returns the dot product of two Quaternions.
+		@param Qa One of the Quaternions.
+		@param Qb One of the Quaternions.
+		@returns The dot product of two Quaternions.
+		*/
 		float getDotProduct(Quaternion Qa, Quaternion Qb)
 		{
 			float dp = Qa.x*Qb.x + Qa.y*Qb.y + Qa.z*Qb.z + Qa.w * Qb.w;
 			return dp;
 		}
 
+		/**
+		@brief Returns the normalised version of the Quaternion.
+		@returns The normalised version of the Quaternion.
+		*/
 		Quaternion getNormalised()
 		{
 			Quaternion normalised;
@@ -69,8 +80,19 @@ namespace Maths
 			return normalised;
 		}
 
+		/**
+		@brief Rotates a Quaternion.
+		@param quat The Quaternion to rotate.
+		@param axis The axis to rotate.
+		@param angle The angle of the rotation
+		@returns The length of the Quaternion.
+		*/
 		void rotate(Quaternion &quat, Maths::Vec3 axis, float angle);
 		
+		/**
+		@brief Gets a Mat4 from the Quaternion.
+		@returns The a Mat4 from the Quaternion.
+		*/
 		Mat4 getMatrix();
 	};
 

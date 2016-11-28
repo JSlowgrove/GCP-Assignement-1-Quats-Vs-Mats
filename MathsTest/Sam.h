@@ -17,21 +17,19 @@ class Sam
 {
 public:
 	/**
-	Constructs a Model Object.
-	Creates a Model Object using the shader file locations, the obj file location and OpenGL.
+	@brief Creates a Sam Object using the shader file locations, the obj file location and OpenGL.
 	@param objects A reference to the loaded Object files
 	@param shaders A reference to the loaded Shader files
 	*/
 	Sam(std::unordered_map<std::string, Object*> &objects, std::unordered_map<std::string, Shader*> &shaders);
 
 	/**
-	Destructs a Model Object.
-	Destructs the Model Object deleting the Model Object from memory.
+	@brief Destructs a Sam Object.
 	*/
 	~Sam();
 
 	/**
-	Draw the Model to the screen.
+	@brief Draw the Sam to the screen.
 	@param viewMatrix A reference to the camera view matrix.
 	@param projMatrix A reference to the camera projection matrix.
 	@param matrix A reference to the objects matrix.
@@ -47,14 +45,14 @@ private:
 	std::string material;
 
 	/**
-	Initialise the object for the Model.
+	@brief Initialise the object for the Model.
 	@param objFileName The name of the obj file.
 	@param objects A reference to the loaded Object files
 	*/
 	void initialiseVAO(std::string objFileName, std::unordered_map<std::string, Object*> &objects);
 
 	/**
-	Initialise the shaders.
+	@brief Initialise the shaders.
 	@param vertexShaderFileName The name of the vertex shader file.
 	@param fragmentShaderFileName The name of the fragment shader file.
 	@param shaders A reference to the loaded Shader files
