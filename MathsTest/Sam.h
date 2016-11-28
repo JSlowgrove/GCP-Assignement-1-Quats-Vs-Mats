@@ -34,7 +34,7 @@ public:
 	@param projMatrix A reference to the camera projection matrix.
 	@param matrix A reference to the objects matrix.
 	*/
-	void draw(glm::mat4 &viewMatrix, glm::mat4 &projMatrix, Maths::Mat4 matrix);
+	void draw(Maths::Mat4 &viewMatrix, glm::mat4 &projMatrix, Maths::Mat4 matrix);
 
 private:
 	///The Shader for the Model

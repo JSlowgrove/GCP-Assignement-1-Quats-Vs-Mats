@@ -3,9 +3,9 @@
 #pragma once
 
 #include <iostream>
-#include <glm.hpp>
 #include <SDL.h>
 #include "Shader.h"
+#include "../Maths/Vec2.h"
 
 /**
 @brief A class for the UI Objects.
@@ -47,9 +47,9 @@ protected:
 	///The VBO for the rectangle
 	GLuint obj;
 	///The dimensions for the rectangle
-	glm::vec2 dimensions;
+	Maths::Vec2 dimensions;
 	///The position for the UIObject
-	glm::vec2 position;
+	Maths::Vec2 position;
 	///The Texture
 	GLuint textureID;
 	///A boolean for if the Model contains a texture
@@ -80,5 +80,5 @@ protected:
 	@param coordinates The coordinates to convert.
 	@returns The converted coordinates.
 	*/
-	glm::vec2 convertToOpenGLCoordinate(glm::vec2 coordinates);
+	Maths::Vec2 convertToOpenGLCoordinate(Maths::Vec2 coordinates);
 };

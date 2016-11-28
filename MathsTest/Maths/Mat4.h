@@ -126,8 +126,8 @@ namespace Maths
 
 		/**
 		@brief Translates the matrix using the input vector
-		@param tv The translation vector vec3 to set the matrix position.
 		@param matrix A pointer to the matrix to rotate.
+		@param tv The translation vector vec3 to set the matrix position.
 		*/
 		void translate(Mat4 &matrix, Vec3 tv);
 

@@ -8,6 +8,8 @@
 #include <gtc/type_ptr.hpp>
 #include <gtc/matrix_transform.hpp>
 #include "GL/glew.h"
+#include "../Maths/Vec3.h"
+#include "../Maths/Mat4.h"
 
 /**
 @brief Creates a Camera object.
@@ -29,7 +31,7 @@ public:
 	@brief Moves the Camera using the translation.
 	@param translation The translation.
 	*/
-	void moveCamera(glm::vec3 translation);
+	void moveCamera(Maths::Vec3 translation);
 
 	/**
 	@brief Moves the Camera along the X axis.
@@ -53,7 +55,7 @@ public:
 	@brief Rotates the Camera using the rotation.
 	@param rotation The rotation.
 	*/
-	void rotateCamera(glm::vec3 rotation);
+	void rotateCamera(Maths::Vec3 rotation);
 
 	/**
 	@brief Rotate the Camera along the X axis.
@@ -77,7 +79,7 @@ public:
 	@brief Returns the Camera view matrix.
 	@returns The Camera view matrix.
 	*/
-	glm::mat4 getView();
+	Maths::Mat4 getView();
 
 	/**
 	@brief Returns the Camera projection matrix.
@@ -89,19 +91,19 @@ public:
 	@brief Returns the Camera orientation.
 	@returns The Camera orientation.
 	*/
-	glm::vec3 getOrientation();
+	Maths::Vec3 getOrientation();
 
 	/**
 	@brief Sets the position of the Camera.
 	@param position The new position.
 	*/
-	void setPosition(glm::vec3 position);
+	void setPosition(Maths::Vec3 position);
 
 private:
 	///Create a viewing matrix for the Camera (Camera orientation)
-	glm::mat4 view;
+	Maths::Mat4 view;
 	///Construct a projection matrix for the Camera (Camera lense)
 	glm::mat4 projection;
 	///The Orientation of the Camera
-	glm::vec3 orientation;
+	Maths::Vec3 orientation;
 };

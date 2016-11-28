@@ -42,7 +42,8 @@ UIObject::~UIObject()
 void UIObject::initialiseObject()
 {
 	//convert the coordinates to work with OpenGL
-	dimensions *= 0.01f;
+	dimensions.x *= 0.01f;
+	dimensions.y *= 0.01f;
 	position = convertToOpenGLCoordinate(position);
 
 	//get the max coordinates using the dimensions
@@ -92,7 +93,8 @@ void UIObject::initialiseObject()
 void UIObject::initialiseObject(SDL_Surface* surface)
 {
 	//convert the coordinates to work with OpenGL
-	dimensions *= 0.01f;
+	dimensions.x *= 0.01f;
+	dimensions.y *= 0.01f;
 	position = convertToOpenGLCoordinate(position);
 
 	//get the max coordinates using the dimensions
@@ -204,10 +206,11 @@ void UIObject::initialiseTexture(SDL_Surface* surface)
 	glDeleteBuffers(1, &textureBuffer);
 }
 
-glm::vec2 UIObject::convertToOpenGLCoordinate(glm::vec2 coordinates)
+Maths::Vec2 UIObject::convertToOpenGLCoordinate(Maths::Vec2 coordinates)
 {
 	//convert to openGL coordinates
-	coordinates *= 0.01f;
+	coordinates.x *= 0.01f;
+	coordinates.y *= 0.01f;
 	coordinates.x = coordinates.x - 1;
 	coordinates.y = coordinates.y - 1;
 

@@ -7,7 +7,6 @@
 #include <windows.h>
 // The GLM library contains vector and matrix functions and classes for us to use
 // They are designed to easily work with OpenGL!
-#include <glm.hpp> // This is the main GLM header
 #include <gtc/matrix_transform.hpp> // This one lets us use matrix transformations
 #include "GL/glew.h"
 #include "PGGAssignment2Code/StateManager.h"

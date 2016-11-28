@@ -5,7 +5,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
-#include <glm.hpp>
 #include <string>
 #include "GL/glew.h"
 #include "FileLoader.h"

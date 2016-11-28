@@ -3,7 +3,6 @@
 #pragma once
 
 #include <iostream>
-#include <glm.hpp>
 #include "GL/glew.h"
 #include "FileLoader.h"
 
