@@ -91,17 +91,17 @@ namespace Maths
 		@brief Sets the values of the matrix to that of a Perspective matrix
 		@param fovy The field of view on the y axis.
 		@param a The aspect.
-		@param zf The z plane which is far from the camera.
-		@param zn The z plane closer to the camera.
+		@param f The z plane which is far from the camera.
+		@param n The z plane closer to the camera.
 		*/
-		void setAsPerspectiveMatrix(float fovy, float a, float zf, float zn)
+		void setAsPerspectiveMatrix(float fovy, float aspect, float n, float f)
 		{
-			float const s = 1.f / float(tan(fovy / 2.f));
+			float const a = tanf(fovy / 2.0f);
 
-			m[0] = s / a;	m[1] = 0.0f;	m[2] = 0.0f;						m[3] = 0.0f;
-			m[4] = 0.0f;	m[5] = s;		m[6] = 0.0f;						m[7] = 0.0f;
-			m[8] = 0.0f;	m[9] = 0.0f;	m[10] = -((zf + zn) / (zf - zn));	m[11] = 0.0f;
-			m[12] = 0.0f;	m[13] = 0.0f;	m[14] = 0.0f;						m[15] = -((2.0f * zf * zn) / (zf - zn));
+			m[0] = 1.0f / (aspect * a);		m[1] = 0.0f;		m[2] = 0.0f;						m[3] = 0.0f;
+			m[4] = 0.0f;					m[5] = 1.0f / a;	m[6] = 0.0f;						m[7] = 0.0f;
+			m[8] = 0.0f;					m[9] = 0.0f;		m[10] = -((f + n) / (f - n));		m[11] = -((2.0f * f * n) / (f - n));
+			m[12] = 0.0f;					m[13] = 0.0f;		m[14] = -1.0f;						m[15] = 0.0f;
 		}
 
 		/**

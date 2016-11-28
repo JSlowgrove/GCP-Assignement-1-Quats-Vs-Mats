@@ -4,9 +4,6 @@
 
 #include <SDL.h>
 #include <iostream>
-#include <glm.hpp>
-#include <gtc/type_ptr.hpp>
-#include <gtc/matrix_transform.hpp>
 #include "GL/glew.h"
 #include "../Maths/Vec3.h"
 #include "../Maths/Mat4.h"
@@ -85,7 +82,7 @@ public:
 	@brief Returns the Camera projection matrix.
 	@returns The Camera projection matrix.
 	*/
-	glm::mat4 getProjection();
+	Maths::Mat4 getProjection();
 
 	/**
 	@brief Returns the Camera orientation.
@@ -103,7 +100,7 @@ private:
 	///Create a viewing matrix for the Camera (Camera orientation)
 	Maths::Mat4 view;
 	///Construct a projection matrix for the Camera (Camera lense)
-	glm::mat4 projection;
+	Maths::Mat4 projection;
 	///The Orientation of the Camera
 	Maths::Vec3 orientation;
 };

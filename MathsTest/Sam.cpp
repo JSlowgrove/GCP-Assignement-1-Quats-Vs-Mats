@@ -71,7 +71,7 @@ void Sam::initialiseShaders(std::string vertexShaderFileName, std::string fragme
 	shader = shaders[linkedShaderName];
 }
 
-void Sam::draw(Maths::Mat4 &viewMatrix, glm::mat4 &projMatrix, Maths::Mat4 matrix)
+void Sam::draw(Maths::Mat4 &viewMatrix, Maths::Mat4 &projMatrix, Maths::Mat4 matrix)
 {
 	/*Activate the shader program*/
 	glUseProgram(shader->getShaderProgram());
@@ -82,7 +82,7 @@ void Sam::draw(Maths::Mat4 &viewMatrix, glm::mat4 &projMatrix, Maths::Mat4 matri
 	/*Send the matrices to the shader as uniforms locations*/
 	glUniformMatrix4fv(shader->getModelMatrixLocation(), 1, GL_TRUE, matrix.getMatrixArray());
 	glUniformMatrix4fv(shader->getViewMatrixLocation(), 1, GL_TRUE, viewMatrix.getMatrixArray());
-	glUniformMatrix4fv(shader->getShaderProjectionMatrixLocation(), 1, GL_FALSE, glm::value_ptr(projMatrix));
+	glUniformMatrix4fv(shader->getShaderProjectionMatrixLocation(), 1, GL_TRUE, projMatrix.getMatrixArray());
 
 	/*if the model uses a shader*/
 	if (material != "Untextured")

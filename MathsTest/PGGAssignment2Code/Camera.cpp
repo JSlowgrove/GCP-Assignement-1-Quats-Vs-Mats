@@ -5,7 +5,7 @@
 Camera::Camera()
 {
 	//initialise the projection matrix for the camera (camera lense)
-	projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 200.0f);
+	projection.setAsPerspectiveMatrix(45.0f, 720.0f / 576.0f, 0.1f, 200.0f);
 	//initialise the view matrix for the camera
 	view.setAsIdentityMatrix();
 	view.translate(view, Maths::Vec3(0.0f, 0.0f, 0.0f));
@@ -85,7 +85,7 @@ Maths::Mat4 Camera::getView()
 	return view;
 }
 
-glm::mat4 Camera::getProjection()
+Maths::Mat4 Camera::getProjection()
 {
 	//return the Camera projection matrix
 	return projection;

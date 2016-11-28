@@ -1,9 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <glm.hpp>
-#include <gtc/type_ptr.hpp>
-#include <gtc/matrix_transform.hpp>
 #include <unordered_map>
 #include "GL/glew.h"
 #include "PGGAssignment2Code/Shader.h"
@@ -34,7 +31,7 @@ public:
 	@param projMatrix A reference to the camera projection matrix.
 	@param matrix A reference to the objects matrix.
 	*/
-	void draw(Maths::Mat4 &viewMatrix, glm::mat4 &projMatrix, Maths::Mat4 matrix);
+	void draw(Maths::Mat4 &viewMatrix, Maths::Mat4 &projMatrix, Maths::Mat4 matrix);
 
 private:
 	///The Shader for the Model
